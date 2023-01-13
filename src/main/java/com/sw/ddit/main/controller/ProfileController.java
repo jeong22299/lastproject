@@ -67,8 +67,8 @@ public class ProfileController {
 		
 		empVO.setEmpCd(empCd);
 		// 업로드 폴더 설정
-		String uploadFolder = "C:\\eGovFrameDev-3.10.0-64bit\\workspace\\Starworks\\src\\main\\webapp\\resources\\profileImg";
-		String uploadFolderNode = "C:\\Users\\PC-12\\Documents\\카카오톡 받은 파일\\chat_node\\img\\profilePic";
+		String uploadFolder = "D:\\A_TeachingMaterial\\7.LastProject\\workspace\\Starworks\\src\\main\\webapp\\resources\\profileImg";
+		String uploadFolderNode = "D:\\A_TeachingMaterial\\7.LastProject\\chat_node\\chat_node\\img\\profilePic";
 		log.info("파일위치 : " +  uploadFolder);
 		// 원래 파일명
 		String uploadFileName = "";
@@ -112,7 +112,7 @@ public class ProfileController {
 		empVO.setEmpCd(empCd);
 		
 		// 업로드 폴더 설정
-		String uploadFolder = "C:\\eGovFrameDev-3.10.0-64bit\\workspace\\Starworks\\src\\main\\webapp\\resources\\profileSign";
+		String uploadFolder = "D:\\A_TeachingMaterial\\7.LastProject\\workspace\\Starworks\\src\\main\\webapp\\resources\\profileSign";
 		log.info("파일위치 : " +  uploadFolder);
 		// 원래 파일명
 		String uploadFileName = "";

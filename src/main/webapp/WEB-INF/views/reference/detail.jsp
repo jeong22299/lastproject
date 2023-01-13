@@ -7,7 +7,7 @@
 <c:set var = "exten" value = "${totalRefeVO.refeFileExten}"/>
 <c:set var = "refeExten" value = "${fn:split(exten,'/')}" />
 <hr>
-<table class="table text-nowrap text-md-nowrap table-bordered">
+<table class="table text-nowrap text-md-nowrap table-bordered table-striped">
   <thead>
     <tr>
       <th colspan="6" style="font-size:20px; ">자료 상세 보기</th>

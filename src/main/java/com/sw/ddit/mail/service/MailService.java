@@ -64,4 +64,8 @@ public interface MailService {
 
 	public AttachFileVO selectMailFileDetail(MailReceiverVO mrVO);
 
+	public List mainList(String empCd);
+
+	public List mainMailList(String empCd);
+
 }

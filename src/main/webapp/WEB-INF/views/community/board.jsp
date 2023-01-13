@@ -30,10 +30,9 @@ div.dataTables_paginate ul.pagination {
 	width: 0%;
 }
 </style>
-<div class="card">
-<!-- 	<div class="card-header"> -->
-<!-- 		<h3 class="card-title">커뮤니티 게시판</h3> -->
-<!-- 	</div> -->
+<div style="text-align: center;">
+	<h1 id="reload_target">커뮤니티</h1><br>
+</div>	
 	<div class="card-body">
 		<div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
 			<div class="row">
@@ -74,7 +73,6 @@ div.dataTables_paginate ul.pagination {
 											<td>${commu.rnum }</td>
 											<td><a href="/commu/selectCommuDetail/${commu.comNo}" class="order-1">${commu.tit }</a></td>
 											<td>${commu.regDt }</td>
-											<td>익명</td>
 											<td>${commu.viewCnt }</td>
 											<td>${commu.comCmmt }</td>
 											<td>${commu.hitCnt }</td>
@@ -99,7 +97,7 @@ div.dataTables_paginate ul.pagination {
 		</div>
 	</div>
 	
-</div>
+
 
 <script type="text/javascript">
 	// table dnd

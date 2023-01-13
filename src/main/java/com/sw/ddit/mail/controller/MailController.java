@@ -63,6 +63,20 @@ public class MailController {
 		model.addAttribute("list", list);
 		return "mail/mailBoard";
 	}
+	// 메인화면 메일 리스트
+	@RequestMapping("/mainList")
+	public String mainList(Model model) {
+		Authentication authentication =  SecurityContextHolder.getContext().getAuthentication();
+		CustomUser user = (CustomUser) authentication.getPrincipal();
+		
+		log.info("getEmpNm: " + user.getEmployeeVO().getEmpNm());
+		log.info("getEmpCd: " + user.getEmployeeVO().getEmpCd()); 
+		
+		List list = mailService.mainList(user.getEmployeeVO().getEmpCd());
+		
+		model.addAttribute("list", list);
+		return "main/index";
+	}
 	
 	// 메일 상세 폼
 	@GetMapping("/selectMailDetail/{emlNo}")
@@ -126,6 +140,20 @@ public class MailController {
 	@RequestMapping("/refList")
 	@ResponseBody
 	public List refList(Model model, MailVO mailVO) {
+		
+		MailReceiverVO mrVO = new MailReceiverVO();
+		if(StringUtils.isNotEmpty(mailVO.getEmlCd())) {
+			mrVO.setEmlCd(mailVO.getEmlCd());
+		}
+		List list = mailService.selectRefList(mrVO);
+		
+		return list;
+	}
+	
+	/** main 화면 list **/
+	@RequestMapping("/mainMailList")
+	@ResponseBody
+	public List mainMailList(Model model, MailVO mailVO) {
 		
 		MailReceiverVO mrVO = new MailReceiverVO();
 		if(StringUtils.isNotEmpty(mailVO.getEmlCd())) {
@@ -241,7 +269,7 @@ public class MailController {
 			
 			
 			// 파일경로
-			String path = "C:\\Users\\PC-05\\Desktop\\eGovFrameDev-3.10.0-64bit\\workspace\\Starworks\\src\\main\\webapp\\resources\\noticeUpload";
+			String path = "D:\\A_TeachingMaterial\\7.LastProject\\workspace\\Starworks\\src\\main\\webapp\\resources\\noticeUpload";
 			// 연월일 폴더 생성
 			File uploadPath = new File(path);
 			// 파일 path 저장 

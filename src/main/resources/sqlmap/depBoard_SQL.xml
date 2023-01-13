@@ -8,7 +8,7 @@
 	<!-- 공지사항 리스트 조회 -->
 	<select id="selectDepBoardList" resultType="egovframework.rte.psl.dataaccess.util.EgovMap">
 		SELECT ROWNUM RNUM, X.* 	
-		FROM (
+		FROM ( 
 		    SELECT 
 		        A.DEP_NO
 		        , A.TIT

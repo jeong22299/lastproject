@@ -19,10 +19,8 @@
 	<nav class="nav main-nav flex-column flex-md-row">
 		<a class="nav-link active" href="/mail/mailSend">메일 쓰기</a>
 		<a class="nav-link" href="/mail/selectMailList"><i class="fe fe-mail"></i> 받은 메일함</a>
-		<a class="nav-link" href="#"><i class="fe fe-send"></i> 보낸 메일함</a>
-		<a class="nav-link" href="#"><i class="fe fe-inbox"></i> 임시 보관함</a>
-		<a class="nav-link" href="#"><i class="fe fe-bookmark"></i> 중요 메일함</a>
-		<a class="nav-link" href="#"><i class="fe fe-trash"></i> 휴지통</a>
+		<a class="nav-link" href="/mail/sendList"><i class="fe fe-send"></i> 보낸 메일함</a>
+		<a class="nav-link" href="/mail/delList"><i class="fe fe-trash"></i> 휴지통</a>
 	</nav>
 </div>
 <form name="insertMailForm" action="/mail/insertMail" id="insertMailForm" method="post" enctype="multipart/form-data">

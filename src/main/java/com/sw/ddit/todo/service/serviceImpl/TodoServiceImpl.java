@@ -19,6 +19,12 @@ public class TodoServiceImpl implements TodoService{
 	public List<TodoVO> todoList(String empCd){
 		return this.todoMapper.todoList(empCd);
 	}
+	
+	// todo main 리스트 목록 조회
+	@Override
+	public List<TodoVO> todoMainList(String empCd){
+		return this.todoMapper.todoMainList(empCd);
+	}
 
 	// 상세정보
 	@Override

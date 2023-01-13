@@ -23,6 +23,22 @@
 		) X
 	</select>
 	
+	<!-- 메인공지사항 리스트 조회 -->
+	<select id="mainNotiList" resultType="egovframework.rte.psl.dataaccess.util.EgovMap">
+	    SELECT 
+	        A.NOTI_NO
+	        , A.TIT
+	        , A.CON
+	        , TO_CHAR(A.REG_DT,'YY"년 "MM"월 "DD"일"') REG_DT
+	        , A.VIEW_CNT
+	        , A.EMP_CD
+	        , B.EMP_NM
+	    FROM  NOTICE A
+	    LEFT OUTER JOIN EMPLOYEE B ON (A.EMP_CD = B.EMP_CD)
+	    WHERE ROWNUM &lt;= 5
+	    ORDER BY A.NOTI_NO 
+	</select>
+	
 	<!-- 공지사항 상세 조회 -->
 	<select id="selectNotiDetail" parameterType="com.sw.ddit.notice.vo.NoticeVO" resultType="com.sw.ddit.notice.vo.NoticeVO">
 		SELECT 

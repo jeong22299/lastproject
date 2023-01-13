@@ -43,4 +43,6 @@ public interface NoticeMapper {
 	// 첨부파일삭제
 	int deleteFile(AttachFileVO acthVO);
 
+	List mainNotiList();
+
 }

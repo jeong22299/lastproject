@@ -207,6 +207,16 @@ public class MailServiceImpl implements MailService{
 	public AttachFileVO selectMailFileDetail(MailReceiverVO mrVO) {
 		return mailMapper.selectMailFileDetail(mrVO);
 	}
+
+	@Override
+	public List mainList(String empCd) {
+		return mailMapper.mainList(empCd);
+	}
+
+	@Override
+	public List mainMailList(String empCd) {
+		return mailMapper.mainMailList(empCd);
+	}
 	
 
 }

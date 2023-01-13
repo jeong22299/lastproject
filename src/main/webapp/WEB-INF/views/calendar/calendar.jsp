@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function () {
 					},
 					success:function(result){
 						console.log("성공!!@@!!");
-					
+						location.reload(); 
 					}
 				}); // ajax end			
 			}else{
@@ -176,6 +176,7 @@ document.addEventListener('DOMContentLoaded', function () {
 					},
 					success:function(result){
 						console.log("성공!!@@!!");
+						location.reload(); 
 					}
 				});
 		    	

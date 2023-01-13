@@ -26,9 +26,34 @@
 		ORDER BY A.END_TI
 	</select>
 	
+	<!-- 할일 리스트 목록 조회 -->
+	<select id="todoMainList" parameterType="string" resultType="todoVO">
+		SELECT  A.TODO_CD
+			  , A.TODO_NO
+		      , A.TIT   
+		      , A.CON   
+		      , A.REG_TI    
+		      , A.END_TI    
+		      , (SELECT EMP_NM
+		         FROM   EMPLOYEE B
+		         WHERE  A.CTOR = B.EMP_CD)  as CTOR
+		      , A.CTOR  as CTOR_CD
+		      , A.PROGS    
+		      , A.TYPE    
+		      , A.SIT       
+		      , (SELECT EMP_NM
+		         FROM   EMPLOYEE B
+		         WHERE  A.EMP_CD = B.EMP_CD)  as EMP_CD
+		FROM    TODO A
+		LEFT OUTER JOIN EMPLOYEE B ON (A.EMP_CD = B.EMP_CD)
+		WHERE   A.EMP_CD = #{empCd}
+		AND ROWNUM &lt;= 5  
+		ORDER BY A.END_TI
+	</select>
+	
 	<!-- 상세 보기 참여자 이름 목록 조회 -->
 	<select id="detail" parameterType="String" resultType="todoVO">
-		SELECT B.EMP_NM , B.EMP_CD
+		SELECT B.EMP_NM
 		FROM   TODO A, EMPLOYEE B
 		WHERE  A.EMP_CD = B.EMP_CD
 		AND    A.TIT = #{tit}

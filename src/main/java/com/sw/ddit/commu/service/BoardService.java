@@ -40,5 +40,7 @@ public interface BoardService {
 	
 	// 게시글 댓글 delete
 	public int deleteCommuRep(ComCmmtVO comCmmtVO);
+
+	public List mainCommuList();
 	
 }

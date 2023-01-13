@@ -29,7 +29,7 @@
 <div >
 <sec:authentication property="principal.employeeVO.empCd" var="prcEmpCd"/>
 <sec:authentication property="principal.employeeVO.depCd" var="prcDepCd"/>
-<input type="hidden" name="personal" value="personal"/>
+<input type="hidden" name="company" value="company"/>
 		<div>
 			<button type="button" id="${stat.count}" class="btn ripple btn-danger btn delbtn">삭제</button>
 			<button type="button" id="${stat.count}" class="btn aaa btn-light btn downloadbtn" ><i class="fe fe-download"></i> 다운로드</button>
@@ -78,7 +78,7 @@
 							<td class="tdchk"><input type="checkbox" name="chkList" id="chkbox" value="${totalRefeVO.refeCd}"/></td>
 							<td><a href="/reference/detail?refeCd=${totalRefeVO.refeCd}">${totalRefeVO.refeFileOrgNm}</a></td>
 							<td>${totalRefeVO.employeeVOList[0].empNm}</td>
-							<td><fmt:formatDate value="${totalRefeVO.regTi}" pattern="yy년MM월dd일  hh시mm분"/></td>
+							<td><fmt:formatDate value="${totalRefeVO.regTi}" pattern="yy년MM월dd일  HH시mm분"/></td>
 							<td><fmt:formatNumber value='${totalRefeVO.viewCnt}' pattern='#,###' /></td>
 						</tr>
 <%-- 					<p>${totalRefeVO.depCd},${refeName }</p> --%>

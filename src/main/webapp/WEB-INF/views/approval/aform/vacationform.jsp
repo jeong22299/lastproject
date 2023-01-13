@@ -489,7 +489,7 @@ body {padding:0;}
 		<div class="modal-content modal-content-demo">
 			<div class="modal-header">
 				<h6 class="modal-title">조직도</h6>
-				<input type="text" id="nodeId2" value="<sec:authentication property="principal.employeeVO.empCd" />"/>
+				<input type="hidden" id="nodeId2" value="<sec:authentication property="principal.employeeVO.empCd" />"/>
 				<button aria-label="Close" class="btn-close btn=-sm" data-bs-dismiss="modal" type="button"></button>
 			</div>
 			<div class="modal-body"  >

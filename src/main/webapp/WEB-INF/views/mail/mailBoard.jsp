@@ -20,28 +20,15 @@
 			<a class="nav-link" href="/mail/mailSend">메일 쓰기</a>
 			<a class="nav-link active" href="/mail/selectMailList"><i class="fe fe-mail"></i> 받은 메일함</a>
 			<a class="nav-link" href="/mail/sendList"><i class="fe fe-send"></i> 보낸 메일함</a>
-			<a class="nav-link" href="#"><i class="fe fe-inbox"></i> 임시 보관함</a>
 			<a class="nav-link" href="/mail/delList"><i class="fe fe-trash"></i> 휴지통</a>
 		</nav>
 	</div>
 	<div class="mail-option">
 		<div class="chk-all border-0">
 			<div class="btn-group">
-				<a data-bs-toggle="dropdown" href="#" class="btn mini all" aria-expanded="false">
-					All
-					<i class="fe fe-chevron-down"></i>
-				</a>
-				<ul class="dropdown-menu">
-					<li><a href="#"> None</a></li>
-					<li><a href="#"> Read</a></li>
-					<li><a href="#"> Unread</a></li>
-				</ul>
 			</div>
 		</div>
 		<div class="btn-group">
-			<a href="#" class="btn mini tooltips">
-				<i class="fe fe-refresh-cw"></i>
-			</a>
 		</div>
 		<button id="deleteButton" class="btn ripple btn-danger">삭제</button>
 <!-- 		<div class="btn-group hidden-phone"> -->
@@ -74,9 +61,6 @@
 						rowspan="1" colspan="1" style="width: 5%;"
 						aria-label="Last name: activate to sort column ascending"></th>
 					<th class="sorting" tabindex="0" aria-controls="example3"
-						rowspan="1" colspan="1" style="width: 5%;"
-						aria-label="Last name: activate to sort column ascending"></th>
-					<th class="sorting" tabindex="0" aria-controls="example3"
 						rowspan="1" colspan="1" style="width: 60%;"
 						aria-label="Last name: activate to sort column ascending">제목</th>
 					<th class="sorting" tabindex="0" aria-controls="example3"
@@ -102,7 +86,6 @@
 <%-- 								<input class="form-control" value="<sec:authentication property="principal.employeeVO.empCd"/>" type=hidden name="ctor" id="ctor" readonly> --%>
 							</td>
 							<td class="inbox-small-cells" style="width: 5%;" class="<c:if test="${mail.emlReadYn eq '1'}">read</c:if>" ><i class="fa fa-star <c:if test="${mail.emlImpYn eq 'Y'}">text-warning</c:if> <c:if test="${mail.emlImpYn ne 'Y'}">text-dark</c:if>"></i></td>
-							<td class="inbox-small-cells" style="width: 5%;" class="<c:if test="${mail.emlReadYn eq '1'}">read</c:if>" ><i class="fa fa-bookmark"></i></td>
 							<td style="width: 60%;"><a href="/mail/selectMailDetail/${mail.emlCd}" id="fn_read" class="<c:if test="${mail.emlReadYn eq '1'}">read</c:if>">${mail.emlTit }</a>
 							</td>
 							<td style="width: 20%;"  class="<c:if test="${mail.emlReadYn eq '1'}">read</c:if>" >${fn:substring(mail.emlDendDt,0,16)}</td>
@@ -207,46 +190,6 @@
     			alert("삭제가 취소되었습니다.");
     		}
     	}
-// 		// 로직 설명을해주자면 
-// 		// 삭제버튼을 눌렀을때 지금 check 박스에 check되어있는 length를 먼저 체크를한다음에
-// 		//체크한 인원수 구하기
-// 		var cnt=$(".del:checked").length;
-		
-// 		// length가 없으면 삭제할 메일을 선택해달라고 alert를 띄우고  return false
-// 		if(cnt==0){
-// 			alert("삭제할 게시글을 선택해주세요");
-// 			return;
-// 		}
-// 		// 해당 클릭 버튼 class:check가 체크된 체크박스를 for문을 돌리는거양   
-// 		$(".del:checked").each(function(i,elt){
-			
-// 			// 그리고 그 체크박스가 선택된 메일들의 emlCd를 갖고와
-// // 			let emlCd = $(this).attr("emlCd"); // 수정필요
-// 			// checkbox의 선택된 갯수
-// 			let emlCode = $("input:checkbox[name=chkList]:checked").length
-			
-// 			console.log(emlCode);
-			
-// 			// 그다음에 각각 선택한것들을 delete를 태워보내는거징
-// 			// 일단 여기 소스상으로는 그렇게되어있네
-// 			// 로직이 대충이해가되남 근데 수정 필요 는 수정해야된다는거지??
-// 			// 응 저게 맞는다는게아니라 저런식으로 emlCd가 어디 박혀있는거를 갖고와야된다는뜻이야 
-// 			$.ajax({
-// 				url:"/mail/updateDel",
-// 				data: {
-// 					"emlCode" : emlCode
-// 				},
-// 				async: false,
-// 				type:"get",
-// 				beforeSend:function(xhr){
-// 					xhr.setRequestHeader(header, token);
-// 				},
-// 				success:function(data){
-// 					alert("삭제되었습니다");
-// 					location.reload();
-// 				}
-// 			});	
-// 		});
+
 	});
-    // });
 </script>

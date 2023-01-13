@@ -77,8 +77,8 @@ public class ApprovalServiceImpl implements ApprovalService{
 	}
 
 	@Override
-	public int apprEnd() {
-		return this.approvalMapper.apprEnd();
+	public int apprEnd(String empNm) {
+		return this.approvalMapper.apprEnd(empNm);
 	}
 
 	@Override
@@ -109,9 +109,38 @@ public class ApprovalServiceImpl implements ApprovalService{
 		return this.approvalMapper.getApprNo();
 	}
 	
-	/*
-	 * @Override public int payformInsert2(Map<String, Object> apprVO) { // TODO
-	 * Auto-generated method stub return 0; }
-	 */
+	// 요청결재 개수
+	@Override
+	public int getReceive(String empCd) {
+		
+		return this.approvalMapper.getReceive(empCd);
+	}
+	
 
+	// 결재내역 개수 수신
+	@Override
+	public int getReceiveCmp(String empCd) {
+		return this.approvalMapper.getReceiveCmp(empCd);
+	}
+	
+	// 진행결재 상신
+	@Override
+	public int getReport(String empCd) {
+		return this.approvalMapper.getReport(empCd);
+	}
+	
+	// 완료결재 상신
+	@Override
+	public int getReportCmp(String empCd) {
+		return this.approvalMapper.getReportCmp(empCd);
+	}
+
+	
+	// 반려결재 상신
+	@Override
+	public int getReportRet(String empCd) {
+		return this.approvalMapper.getReportRet(empCd);
+	}
+
+	
 }

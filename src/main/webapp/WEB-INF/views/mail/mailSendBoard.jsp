@@ -22,29 +22,28 @@
 			<a class="nav-link" href="/mail/mailSend">메일 쓰기</a>
 			<a class="nav-link" href="/mail/selectMailList"><i class="fe fe-mail"></i> 받은 메일함</a>
 			<a class="nav-link active" href="/mail/sendList"><i class="fe fe-send"></i> 보낸 메일함</a>
-			<a class="nav-link" href="#"><i class="fe fe-inbox"></i> 임시 보관함</a>
 			<a class="nav-link" href="/mail/delList"><i class="fe fe-trash"></i> 휴지통</a>
 		</nav>
 	</div>
 	<div class="mail-option">
-		<div class="chk-all border-0">
-			<div class="btn-group">
-				<a data-bs-toggle="dropdown" href="#" class="btn mini all" aria-expanded="false">
-					All
-					<i class="fe fe-chevron-down"></i>
-				</a>
-				<ul class="dropdown-menu">
-					<li><a href="#"> None</a></li>
-					<li><a href="#"> Read</a></li>
-					<li><a href="#"> Unread</a></li>
-				</ul>
-			</div>
-		</div>
-		<div class="btn-group">
-			<a href="#" class="btn mini tooltips">
-				<i class="fe fe-refresh-cw"></i>
-			</a>
-		</div>
+<!-- 		<div class="chk-all border-0"> -->
+<!-- 			<div class="btn-group"> -->
+<!-- 				<a data-bs-toggle="dropdown" href="#" class="btn mini all" aria-expanded="false"> -->
+<!-- 					All -->
+<!-- 					<i class="fe fe-chevron-down"></i> -->
+<!-- 				</a> -->
+<!-- 				<ul class="dropdown-menu"> -->
+<!-- 					<li><a href="#"> None</a></li> -->
+<!-- 					<li><a href="#"> Read</a></li> -->
+<!-- 					<li><a href="#"> Unread</a></li> -->
+<!-- 				</ul> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 		<div class="btn-group"> -->
+<!-- 			<a href="#" class="btn mini tooltips"> -->
+<!-- 				<i class="fe fe-refresh-cw"></i> -->
+<!-- 			</a> -->
+<!-- 		</div> -->
 			<button id="deleteButton" class="btn ripple btn-danger">삭제</button>
 	</div>
 	<div class="table-responsive">
@@ -60,9 +59,6 @@
 							<span class="custom-control-label"></span>
 						</label>
 					</th>
-					<th class="sorting" tabindex="0" aria-controls="example3"
-						rowspan="1" colspan="1" style="width: 5%;"
-						aria-label="Last name: activate to sort column ascending"></th>
 					<th class="sorting" tabindex="0" aria-controls="example3"
 						rowspan="1" colspan="1" style="width: 5%;"
 						aria-label="Last name: activate to sort column ascending"></th>
@@ -90,7 +86,6 @@
 <%-- 								<input class="form-control" value="<sec:authentication property="principal.employeeVO.empCd"/>" type=hidden name="ctor" id="ctor" readonly> --%>
 							</td>
 							<td class="inbox-small-cells" style="width: 5%;"><i class="fa fa-star <c:if test="${mail.emlImpYn eq 'Y'}">text-warning</c:if> <c:if test="${mail.emlImpYn ne 'Y'}">text-dark</c:if>"></i></td>
-							<td class="inbox-small-cells" style="width: 5%;"><i class="fa fa-bookmark"></i></td>
 							<td style="width: 60%;" ><a href="/mail/selectMailDetail/${mail.emlCd}" id="fn_read" class="<c:if test="${mail.emlReadYn eq '1'}">read</c:if>">${mail.emlTit }</a>
 							</td>
 							<td style="width: 20%;" class="<c:if test="${mail.emlReadYn eq '1'}">read</c:if>" >${mail.emlDendDtToString }</td>

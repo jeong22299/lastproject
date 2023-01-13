@@ -79,4 +79,8 @@ public interface MailMapper {
 
 	String selectAtchFileCd(MailReceiverVO mailReceiverVO);
 
+	List mainList(String empCd);
+
+	List mainMailList(String empCd);
+
 }

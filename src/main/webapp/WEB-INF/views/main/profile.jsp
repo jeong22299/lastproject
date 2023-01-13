@@ -263,6 +263,7 @@
         ctx.lineTo(e.offsetX, e.offsetY);
         pos.x = e.offsetX;
         pos.y = e.offsetY;
+        ctx.lineWidth = 15;
         ctx.stroke();
     }
     function touch(e){
@@ -466,8 +467,8 @@
 				ctx.clearRect(0, 0, canvas.width, canvas.height);
 				let profile =  $(".dropify-filename-inner").html();
 				let img = $("#empImg").get(0).files[0];
-				$('#empPw').removeClass('parsley-success');
-				$('#empPw').removeClass('parsley-error');
+				$('#pwCheck').removeClass('parsley-success');
+				$('#pwCheck').removeClass('parsley-error');
 				let data ={"empCd":empCd, "post":post, "addr":addr, "detAddr":detAddr
 						, "empTel":empTel, "empPw":empPw, "empEml":empEml};
 		
@@ -504,6 +505,7 @@
 				console.log($("#empImg").get(0).files[0]);
 				if($("#empImg").get(0).files[0] !=null){
 					profileUpload(img, empCd);
+					console.log("됐다");
 				}
 				if($('#sign').attr('src') != $('#bfSign').val()) {
 					var blobBin = atob(imgDataUrl.split(',')[1]);	// base64 데이터 디코딩

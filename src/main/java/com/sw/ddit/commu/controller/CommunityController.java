@@ -43,6 +43,20 @@ public class CommunityController {
 		return "community/board";
 	}
 	
+	/** 메인 커뮤니티 게시글 list (datatbl사용)**/
+	@RequestMapping("/mainCommuList")
+	public String mainCommuList(Model model) {
+		
+		List commuList = boardService.mainCommuList();
+		log.info("list : " + commuList);
+		
+		//공통 약속
+		model.addAttribute("title", "커뮤니티");
+		model.addAttribute("list", commuList);
+		
+		return "main/index";
+	}
+	
 	/** 커뮤니티 상세 폼 **/
 	@RequestMapping("/selectCommuDetail/{comNo}")
 	public String detail(@PathVariable("comNo") int comNo, Model model) {

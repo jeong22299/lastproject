@@ -27,7 +27,7 @@
 		<result property="sign" column="SIGN" />
 		<result property="depCd" column="DEP_CD" />
 		<result property="coCd" column="CO_CD" />
-		<result property="payCd" column="PAY_CD" />
+		<result property="payCd" column="PAY_CD" /> 
        <collection property="employeeAuthVOList" resultMap="authMap" />
    </resultMap>
  

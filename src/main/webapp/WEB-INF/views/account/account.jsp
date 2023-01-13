@@ -185,10 +185,29 @@ $(document).on("click", ".btn-outline-success", function(){
 	
 	let authData={"authCd":authCd, "empCd":empCd};
 	let data = {"empCd":empCd, "depCd":depCd, "posiCd":posiCd, "empSitCd":empSitCd};
+	let vacData={"empCd":empCd};
 	// 스프링 시큐리티를 위한 토큰처리(csrf)
 	let header = "${_csrf.headerName}";
 	let token = "${_csrf.token}";
 	
+	$.ajax({
+		url:"./authInsert",
+		contentType:"application/json;charset=utf-8",
+		data:JSON.stringify(authData),
+		type:"post",
+		beforeSend:function(xhr){
+			xhr.setRequestHeader(header, token);
+		}
+	});
+	$.ajax({
+		url:"./insertVacation",
+		contentType:"application/json;charset=utf-8",
+		data:JSON.stringify(authData),
+		type:"post",
+		beforeSend:function(xhr){
+			xhr.setRequestHeader(header, token);
+		}
+	});
 	$.ajax({
 		url:"./empUpdate",
 		contentType:"application/json;charset=utf-8",
@@ -199,21 +218,14 @@ $(document).on("click", ".btn-outline-success", function(){
 		},
 		success:(function(result){
 			if(result>0){
-				location.href="/employee/position";
+
+				location.href="/account/account";
 			}else{
 				swal("변경되지 않았습니다.");
 			}
 		})
 	});
-	$.ajax({
-		url:"./authInsert",
-		contentType:"application/json;charset=utf-8",
-		data:JSON.stringify(authData),
-		type:"post",
-		beforeSend:function(xhr){
-			xhr.setRequestHeader(header, token);
-		}
-	});
+
 	
 });
 

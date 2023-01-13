@@ -61,7 +61,7 @@
 							</li>
 							<c:if test="${payCd ge 2}">
 							<li class="nav-item">
-								<a class="nav-link" href=""/mail/selectMailList"">
+								<a class="nav-link" href="/mail/selectMailList">
 									<span class="shape1"></span>
 									<span class="shape2"></span>
 									<i class="ti-email sidemenu-icon menu-icon "></i>
@@ -70,19 +70,23 @@
 							</li>
 							</c:if>
 							<c:if test="${payCd ge 1}">
+							
+							<!--  -->
 							<li class="nav-item">
-								<a class="nav-link" href="landing.html">
+								<a class="nav-link with-sub" href="javascript:void(0)">
 									<span class="shape1"></span>
 									<span class="shape2"></span>
-									<i class="ti-stamp sidemenu-icon menu-icon "></i>
+									<i class="ti-folder sidemenu-icon menu-icon "></i>
 									<span class="sidemenu-label">전자결재관리</span>
+									<i class="angle fe fe-chevron-right"></i>
 								</a>
 								<ul class="nav-sub">
 									<li class="side-menu-label1"><a href="javascript:void(0)">전자결재관리</a></li>
-									<li class="nav-sub-item"><a class="nav-sub-link" href="/approval/approvalCreate">기안서작성</a></li>
-									<li class="nav-sub-item"><a class="nav-sub-link" href="/approval/approvalReport">최종결재함</a></li>
+									<li class="nav-sub-item"><a class="nav-sub-link" href="/approval/approvalMain">보관함</a></li>
+									<!-- <li class="nav-sub-item"><a class="nav-sub-link" href="/approval/approvalReceive">결재수신함</a></li> -->
 								</ul>
 							</li>
+							<!--  -->
 							</c:if>
 							<c:if test="${payCd ge 1}">
 							<li class="nav-item">
@@ -110,7 +114,7 @@
 								</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="landing.html">
+								<a class="nav-link" href="/meet/book">
 									<span class="shape1"></span>
 									<span class="shape2"></span>
 									<i class="ti-blackboard sidemenu-icon menu-icon "></i>
@@ -118,19 +122,12 @@
 								</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link with-sub" href="javascript:void(0)">
+								<a class="nav-link" href="/chart/chartMulti">
 									<span class="shape1"></span>
 									<span class="shape2"></span>
 									<i class="ti-bar-chart-alt sidemenu-icon menu-icon"></i>
 									<span class="sidemenu-label">통계</span>
-									<i class="angle fe fe-chevron-right"></i>
 								</a>
-								<ul class="nav-sub">
-									<li class="side-menu-label1"><a href="javascript:void(0)">통계</a></li>
-									<li class="nav-sub-item"><a class="nav-sub-link" href="widgets.html">근태 현황</a></li>
-									<li class="nav-sub-item"><a class="nav-sub-link" href="/chart/meetChart">회의실 사용현황</a></li>
-									<li class="nav-sub-item"><a class="nav-sub-link" href="/chart/departmentChart">부서별 결재량</a></li>
-								</ul>
 							</li>
 							</c:if>
 						</ul>
@@ -221,9 +218,9 @@
 							</a>
 							<ul class="nav-sub">
 								<li class="side-menu-label1"><a href="javascript:void(0)">전자결재</a></li>
-								<li class="nav-sub-item"><a class="nav-sub-link" href="/approval/draft">기안서</a></li>
 								<li class="nav-sub-item"><a class="nav-sub-link" href="/approval/payform">지출결의서</a></li>
-								<li class="nav-sub-item"><a class="nav-sub-link" href="/approval/vacation">연차신청서</a></li>
+								<li class="nav-sub-item"><a class="nav-sub-link" href="/approval/vacation?empCd=<sec:authentication property="principal.employeeVO.empCd"/>">연차신청서</a></li>
+								<li class="nav-sub-item"><a class="nav-sub-link" href="/approval/draft">기안서</a></li>
 								<li class="nav-sub-item"><a class="nav-sub-link" href="/approval/approvalMain">보관함</a></li>
 								<!-- <li class="nav-sub-item"><a class="nav-sub-link" href="/approval/approvalReceive">결재수신함</a></li> -->
 							</ul>
@@ -273,18 +270,12 @@
 							</ul>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link with-sub" href="javascript:void(0)">
-								<span class="shape1"></span>
-								<span class="shape2"></span>
-								<i class="ti-blackboard sidemenu-icon menu-icon "></i>
-								<span class="sidemenu-label">회의</span>
-								<i class="angle fe fe-chevron-right"></i>
-							</a>
-							<ul class="nav-sub">
-								<li class="side-menu-label1"><a href="javascript:void(0)">회의</a></li>
-								<li class="nav-sub-item"><a class="nav-sub-link" href="/meet/book">회의실 예약</a></li>
-								<li class="nav-sub-item"><a class="nav-sub-link" href="/zoom">화상회의</a></li>
-							</ul>
+								<a class="nav-link" href="/meet/book">
+									<span class="shape1"></span>
+									<span class="shape2"></span>
+									<i class="ti-blackboard sidemenu-icon menu-icon "></i>
+									<span class="sidemenu-label">회의실 예약</span>
+								</a>
 						</li>
 						</c:if>
 						<li class="nav-item">

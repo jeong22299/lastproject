@@ -124,7 +124,10 @@ public class EmployeeController {
 		return "/security/findPW";
 	}
 	
-	
+	@GetMapping("/NeaswFile")
+	public String s() {
+		return "/security/NeaswFile";
+	}
 
 	
 }

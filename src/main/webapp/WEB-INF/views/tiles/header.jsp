@@ -150,6 +150,7 @@
 		var cheader = "${_csrf.headerName}";
 		var ctoken = "${_csrf.token}";
 		var empCd = $('#cd').val();
+		let data = {"empCd":empCd};
 		$.ajax({
 			url: '/alertCount',
 			data: {empCd:empCd},
@@ -171,6 +172,19 @@
 				console.log('에러입니다');
 			}
 		});
+		$.ajax({
+			url:"/main/empDetail",
+			contentType:"application/json;charset=utf-8",
+			data:JSON.stringify(data),
+			type:"post",
+			beforeSend:function(xhr){
+				xhr.setRequestHeader(cheader, ctoken);
+			},
+			success:(function(data){
+				console.log("야호 : " , data);
+				$("#headerImg").attr("src","/resources/profileImg/"+data[0].profile);
+			})
+		});// ajax end
 		
 	});
 	function alertList(empCd) {
@@ -453,7 +467,7 @@
 										<span class="badge bg-success nav-link-badge"></span>
 									</a>
 									<div class="dropdown-menu" style="width: 710px;">
-										<iframe id="the_iframe" style="" src="http://localhost:8859/chat?userid=<sec:authentication property="principal.employeeVO.empId"/>&username=<sec:authentication property="principal.employeeVO.empNm"/>" width="700vw" height="650vh"frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0> </iframe>
+										<iframe id="the_iframe" style="" src="http://192.168.142.3:8859/chat?userid=<sec:authentication property="principal.employeeVO.empId"/>&username=<sec:authentication property="principal.employeeVO.empNm"/>" width="700vw" height="650vh"frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0> </iframe>
 									</div>
 								</div>
 								<!-- Messages -->
@@ -472,8 +486,8 @@
 								</div>
 								<div class="dropdown main-profile-menu">
 									<a class="d-flex" href="javascript:void(0)">
-										<span class="main-img-user"><img alt="avatar"
-												src="/resources/profileImg/<sec:authentication property="principal.employeeVO.profile" />"></span>
+										<span class="main-img-user"><img alt="avatar" id="headerImg"
+												src=""></span>
 									</a>
 									<div class="dropdown-menu">
 										<div class="header-navheading">

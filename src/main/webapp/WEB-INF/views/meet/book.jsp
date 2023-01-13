@@ -494,7 +494,7 @@ datepicker.on('change', function() {
 		</tbody>
 	</table>
 </div>
-<div class="modal fade" id="modaldemo12" style="display: none; margin-top: 350px; margin-left: 190px;" aria-hidden="true">
+<div class="modal fade" id="modaldemo12" style="display: none; margin-top: 280px; margin-left: 170px;" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content modal-content-demo">
 			<div class="modal-header">
@@ -546,7 +546,7 @@ datepicker.on('change', function() {
 		</div>
 	</div>
 </div>
-<div class="modal fade" id="modaldemo13" style="display: none; margin-top: 350px; margin-left: 190px;" aria-hidden="true">
+<div class="modal fade" id="modaldemo13" style="display: none; margin-top: 280px; margin-left: 170px;" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content modal-content-demo">
 			<div class="modal-header">
@@ -592,9 +592,17 @@ datepicker.on('change', function() {
 					<input id="bookContent" class="form-control" value="" readonly="readonly" type="text" style="width: 200px;" required="required">
 				</div>
 			  </div>
-			<div id="13-footer" class="modal-footer" style="display: none;">
+			  <sec:authorize access="hasRole('ROLE_A03')">
+			  <div id="admin-footer" class="modal-footer">
 				<button id="bookCancel" class="btn ripple btn-danger" type="submit" style="float: right;">예약취소</button>
-			</div>
+				</div>
+			  </sec:authorize>
+			  <sec:authorize access="hasAnyRole('ROLE_A01', 'ROLE_A02')">
+			  <div id="13-footer" class="modal-footer" style="display: none;">
+				<button id="bookCancel" class="btn ripple btn-danger" type="submit" style="float: right;">예약취소</button>
+				</div>
+			  </sec:authorize>
+			
 		</div>
 	</div>
 </div>

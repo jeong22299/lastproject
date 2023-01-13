@@ -300,11 +300,11 @@ $('#signupCompany').click(function(){
 		}
 	}
 	
-	if(validAll){ // 유효성 모두 통과
-		swal("회사정보 입력 완료","", "success");
-	} else{
-		swal("입력한 정보들을 다시 확인해주세요","", "error");
-	}
+// 	if(validAll){ // 유효성 모두 통과
+// 		swal("회사정보 입력 완료","", "success");
+// 	} else{
+// 		swal("입력한 정보들을 다시 확인해주세요","", "error");
+// 	}
 });
 
 </script>

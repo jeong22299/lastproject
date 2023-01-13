@@ -10,6 +10,9 @@ public interface TodoMapper {
 	// todo 리스트 목록 조회
 	public List<TodoVO> todoList(String empCd);
 	
+	// todo main 리스트 목록 조회
+	public List<TodoVO> todoMainList(String empCd);
+	
 	// 상세정보
 	public List<TodoVO> detail(String tit);
 	

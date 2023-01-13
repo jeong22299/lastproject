@@ -248,6 +248,7 @@ body {
             <button class="btn ripple btn-primary" type="button" id="updateBtn" name="updateBtn" style="float:right">수정</button>
          </div>
       </div>
+      
    </div>
 </div>
 <!-- alert -->

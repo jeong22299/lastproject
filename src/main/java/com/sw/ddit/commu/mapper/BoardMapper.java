@@ -49,5 +49,7 @@ public interface BoardMapper {
 	
 	// 게시글댓글 delete
 	int deleteCommuRep(ComCmmtVO comCmmtVO);
+
+	List mainCommuList();
 	
 }

@@ -62,11 +62,12 @@
 		WHERE  A.APPR_NO = B.APPR_NO
 		AND    B.APPR_SIT_CD = 'A01'
 	    AND    B.EMP_CD = #{empCd}
+	    ORDER  BY APPR_NO ASC
 	</select>
 	
 	<!-- 결재 상신함 (모든 정보) -->
 		<select id="selectAllList" parameterType="string" resultType="apprVO">
-			SELECT DISTINCT
+			SELECT 
 			A.APPR_NO,
 			A.APPR_TIT,
 			A.REG_DT,
@@ -84,6 +85,10 @@
 			WHERE A.APPR_NO = B.APPR_NO
 			AND   B.APPR_SIT_CD = C.COMM_CD
 		    AND   B.EMP_CD = #{empCd}
+            AND   (B.APPR_SIT_CD = 'A02' 
+            OR   B.APPR_SIT_CD = 'A03')
+            AND B.LINE_TURN != 0
+            ORDER  BY APPR_NO ASC
 		</select>
 	
 	
@@ -103,6 +108,7 @@
 		APPR_SIT_CD
 		FROM APPROVAL
 		WHERE EMP_CD = #{empCd}
+		ORDER  BY APPR_NO ASC
 		
 		<!-- AND APPR_SIT_CD = #{apprSitCd} -->
 	</select>
@@ -295,6 +301,45 @@
 	<!-- apprNo 생성 -->
 	<select id="getApprNo" resultType="String">
 		SELECT 'A' ||TO_CHAR(SYSDATE, 'YYMMDD')||((NVL(MAX(TO_NUMBER(SUBSTR(APPR_NO,8))),0))+1) as APPR_NO FROM APPROVAL
+	</select>
+	
+	<!-- 	요청결재 수신  --> 
+	<select id="getReceive" parameterType="string" resultType="int">
+		SELECT COUNT(APPR_NO) FROM LINE_SEQ 
+		WHERE EMP_CD = #{empCd}
+		AND APPR_SIT_CD = 'A01'
+	</select>
+	
+	<!-- 	결재내역 개수 수신  -->
+	<select id="getReceiveCmp" parameterType="string" resultType="int">
+		SELECT COUNT(APPR_NO) FROM LINE_SEQ 
+		WHERE EMP_CD = #{empCd}
+		AND (APPR_SIT_CD = 'A02' OR APPR_SIT_CD = 'A03') 
+		AND LINE_TURN != 0
+	</select>
+	
+	<!-- 	진행결재 상신  -->
+	<select id="getReport" parameterType="string" resultType="int">
+		SELECT COUNT(APPR_NO) FROM 
+		APPROVAL
+		WHERE EMP_CD = #{empCd}
+		AND APPR_SIT_CD = 'A01'
+	</select>
+	
+	<!-- 	완료결재 상신  -->
+	<select id="getReportCmp" parameterType="string" resultType="int"> 
+		SELECT COUNT(APPR_NO) FROM 
+		APPROVAL
+		WHERE EMP_CD = #{empCd}
+		AND APPR_SIT_CD = 'A02'
+	</select> 
+	
+	<!-- 	반려결재 상신  -->
+	<select id="getReportRet" parameterType="string" resultType="int">
+		SELECT COUNT(APPR_NO) FROM 
+		APPROVAL
+		WHERE EMP_CD = #{empCd}
+		AND APPR_SIT_CD = 'A03'
 	</select>
 	
 </mapper>

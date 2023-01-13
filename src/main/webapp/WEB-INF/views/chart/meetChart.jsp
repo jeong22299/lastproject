@@ -18,22 +18,11 @@
             ]);
 
         var options = {
-//           chart: {
-//             title: '회의실 별 사용 현황',
-//             subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+          chart: {
+            title: '회의실 별 사용 현황',
+            subtitle: 'Sales, Expenses, and Profit: 2014-2017',
             
-//           },
-			title: { // [차트 타이틀 지정 실시]
-			  display: true,
-			  text: 'Twok Title',
-			  color: '#911', // [타이틀 폰트 색상]
-			  font: { // [타이틀 폰트 스타일 변경]
-				  family: 'Comic Sans MS',
-				  size: 20,
-				  weight: 'bold',
-				  lineHeight: 1.2 
-			  }
-			},
+          },
 	        series: {
 	          0: { color: '#9990fd' },
 	          1: { color: '#6259ca' }
@@ -41,9 +30,6 @@
           
         };
 
-//         const font = document.getElementById('columnchart_material');
-//    	    font.style.cssText  = 'font-family : MICEGothic Bold';
-   	 	document.getElementById('columnchart_material').style.font="MICEGothic Bold";
    	    
         var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
 

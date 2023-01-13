@@ -152,9 +152,9 @@ public class PositionController {
 		
 		empVO.setEmpCd(empCd);
 		// 업로드 폴더 설정
-		String uploadFolder = "C:\\eGovFrameDev-3.10.0-64bit\\workspace\\Starworks\\src\\main\\webapp\\resources\\profileImg";
+		String uploadFolder = "D:\\A_TeachingMaterial\\7.LastProject\\workspace\\Starworks\\src\\main\\webapp\\resources\\profileImg";
 		// nodejs folder
-		String nodeFolder = "C:\\Users\\PC-12\\Documents\\카카오톡 받은 파일\\chat_node\\img\\profilePic";
+		String nodeFolder = "D:\\A_TeachingMaterial\\7.LastProject\\chat_node\\img\\profilePic";
 
 		log.info("파일위치 : " +  uploadFolder);
 		// 원래 파일명
@@ -208,7 +208,7 @@ public class PositionController {
 		empVO.setEmpCd(empCd);
 		log.info("employeeVO : " + empVO);
 		// 업로드 폴더 설정
-		String uploadFolder = "C:\\eGovFrameDev-3.10.0-64bit\\workspace\\Starworks\\src\\main\\webapp\\resources\\profileImg";
+		String uploadFolder = "D:\\A_TeachingMaterial\\7.LastProject\\workspace\\Starworks\\src\\main\\webapp\\resources\\profileImg";
 		log.info("파일위치 : " +  uploadFolder);
 		log.info("multipartFile : " + uploadFile);
 		// 원래 파일명

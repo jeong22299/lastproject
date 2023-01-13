@@ -61,6 +61,20 @@ public class NoticeController {
 		return "notice/notiBoard";
 	}
 	
+	/** 메인화면 공지사항 게시글 list **/
+	@RequestMapping("/mainNotiList")
+	public String mainList(Model model) {
+		
+		List mainList = noticeService.mainNotiList();
+		log.info("list : " + mainList);
+		
+		// 공통 약속
+		model.addAttribute("title", "공지사항");
+		model.addAttribute("list", mainList);
+		
+		return "main/index";
+	}
+	
 	/** 공지사항 상세 폼 **/
 	@RequestMapping("/selectNotiDetail/{notiNo}")
 	public String detail(@PathVariable("notiNo") int notiNo, Model model) {
@@ -172,7 +186,7 @@ public class NoticeController {
 		AttachFileVO fileVO = new AttachFileVO();
 		
 		// 파일경로
-		String path = "C:\\Users\\PC-05\\Desktop\\eGovFrameDev-3.10.0-64bit\\workspace\\Starworks\\src\\main\\webapp\\resources\\noticeUpload";
+		String path = "D:\\A_TeachingMaterial\\7.LastProject\\workspace\\Starworks\\src\\main\\webapp\\resources\\noticeUpload";
 		// 연월일 폴더 생성
 		File uploadPath = new File(path);
 		// 파일 path 저장 

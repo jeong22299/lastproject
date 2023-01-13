@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -16,21 +15,13 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,14 +29,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.sun.mail.imap.protocol.Status;
 import com.sw.ddit.approval.service.ApprovalService;
 import com.sw.ddit.approval.vo.ApprovalVO;
 import com.sw.ddit.approval.vo.LineSeqVO;
 import com.sw.ddit.common.vo.AttachFileVO;
-import com.sw.ddit.employee.vo.EmployeeVO;
 import com.sw.ddit.security.CustomUser;
-import com.sw.ddit.tree.service.TreeService;
 
 import lombok.extern.slf4j.Slf4j;
 import net.coobird.thumbnailator.Thumbnailator;
@@ -188,7 +176,7 @@ public class PayController {
 		log.info("absolutePath : " + absolutePath);
 		
 //				String uploadFolder = absolutePath + "resourses\\approvalUpload";
-		String uploadFolder = "C:\\egovframe\\eGovFrameDev-3.10.0-64bit\\workspace\\Starworks\\src\\main\\webapp\\resources\\approvalUpload";
+		String uploadFolder = "C:\\eGovFrameDev-3.10.0-64bit\\workspace\\Starworks\\src\\main\\webapp\\resources\\approvalUpload";
 		
 		log.info("uploadFolder : " + uploadFolder);
 		
@@ -403,7 +391,7 @@ public class PayController {
 		log.info("absolutePath : " + absolutePath);
 		
 //		String uploadFolder = absolutePath + "resourses\\approvalUpload";
-		String uploadFolder = "C:\\egovframe\\eGovFrameDev-3.10.0-64bit\\workspace\\Starworks\\src\\main\\webapp\\resources\\approvalUpload";
+		String uploadFolder = "C:\\eGovFrameDev-3.10.0-64bit\\workspace\\Starworks\\src\\main\\webapp\\resources\\approvalUpload";
 		
 		log.info("uploadFolder : " + uploadFolder);
 		
@@ -569,7 +557,7 @@ public class PayController {
 	// 결재화면 디테일
 	@GetMapping("/payformDetail")
 	public String Detail(String apprNo, Model model) {
-		
+		log.info("apprNo : " + apprNo);
 		//결재 상세보기
 		ApprovalVO apprVO = this.approvalService.payformDetail(apprNo);
 		log.info("apprVO1 : " + apprVO);
@@ -591,6 +579,11 @@ public class PayController {
 		String sign2 = "";  // 두번째 결재자 사인
 		String sign3 = "";  // 세번째 결재자 사인
 		
+		String apprSitCd0 = "";
+		String apprSitCd1 = "";
+		String apprSitCd2 = "";
+		String apprSitCd3 = "";
+		
 		
 		int cnt = 0;
 		
@@ -599,18 +592,22 @@ public class PayController {
 				line0 = vo.getApprNm();
 				lineCode0 = vo.getEmpCd();
 				sign0 = vo.getSign();
+				apprSitCd0 = vo.getApprSitCd();
 			}else if(cnt==1) {
 				line1 = vo.getApprNm();
 				lineCode1 = vo.getEmpCd();
 				sign1 = vo.getSign();
+				apprSitCd1 = vo.getApprSitCd();
 			}else if(cnt==2) {
 				line2 = vo.getApprNm();
 				lineCode2 = vo.getEmpCd();
 				sign2 = vo.getSign();
+				apprSitCd2 = vo.getApprSitCd();
 			}else{
 				line3 = vo.getApprNm();
 				lineCode3 = vo.getEmpCd();
 				sign3 = vo.getSign();
+				apprSitCd3 = vo.getApprSitCd();
 			}
 			
 			cnt++;
@@ -641,6 +638,17 @@ public class PayController {
 		apprSignMap.put("sign2", sign2);
 		apprSignMap.put("sign3", sign3);
 		
+		//결재라인 각 상태코드
+		Map<String, String> apprSitCdMap = new HashMap<String, String>();
+		apprSitCdMap.put("apprSitCd0", apprSitCd0);
+		apprSitCdMap.put("apprSitCd1", apprSitCd1);
+		apprSitCdMap.put("apprSitCd2", apprSitCd2);
+		apprSitCdMap.put("apprSitCd3", apprSitCd3);
+		
+		log.info("apprSitCd0" + apprSitCd0);
+		log.info("apprSitCd1" + apprSitCd1);
+		log.info("apprSitCd2" + apprSitCd2);
+		log.info("apprSitCd3" + apprSitCd3);
 		//지출내역
 		String[][] formConArr = new String[6][5];
 		String formConStr = apprVO.getFormCon();
@@ -673,9 +681,11 @@ public class PayController {
 		model.addAttribute("apprNmMap",apprNmMap); // 결재자 이름
 		model.addAttribute("apprCdMap", apprCdMap); // 결재자 코드
 		model.addAttribute("apprSignMap",apprSignMap); //결재라인 사인
+		model.addAttribute("apprSitCdMap",apprSitCdMap); //결재라인 상태
 		model.addAttribute("formConArr", formConArr);
 		model.addAttribute("formConArrSum", formConSplit[formConSplit.length-1]);
 		
+		log.info("apprSitCdMap :  + " + apprSitCdMap);
 		// forwarding
 		return "approval/aform/payformDetail";
 	}
@@ -688,14 +698,22 @@ public class PayController {
 		return sign;
 	}
 	
+	//data :  {"sign":"approved.jpg","apprNo":"A2301123"}
 	@ResponseBody
 	@PostMapping("/apprUpdateSign")
 	public int apprUpdateSign(@RequestBody HashMap<String, String> signMap) {
+		//signMap : {"sign":"e9944ed6-bb53-4481-b2e0-fc3380a85045_220602003.png","apprNo":"A23011216","empNm":"윤동기"}
 		log.info("signMap : " + signMap);
 		String apprNo = signMap.get("apprNo");
+		String empNm = signMap.get("empNm");
+		log.info("apprNo : " + apprNo);
+		log.info("empNm : " + empNm);
 		int sign = this.approvalService.updateSign(signMap);
+		log.info("sign : " + sign);
 		int sign2 = this.approvalService.updateSign2(apprNo);
-		int end = this.approvalService.apprEnd();
+		log.info("sign2 : " + sign2);
+		int end = this.approvalService.apprEnd(empNm);
+		log.info("end : " + end);
 		return end;
 	}
 	
@@ -742,6 +760,108 @@ public class PayController {
 	public String vacationform() {
 		return "approval/vacationform";
 	}
+	
+	
+	
+	//
+	
+	// 목록 개수 구하기
+	
+	//1. 요청결재
+	//{"empCd" : empCd}
+	@ResponseBody
+	@PostMapping("/getReceive")
+	public int getReceive(@RequestBody ApprovalVO approvalVO) {
+		//ApprovalVO(apprNo=null, apprTit=null, regDt=null, formCon=null, empCd=220602003, ...
+		log.info("approvalVO : " + approvalVO);
+		
+		String empCd = approvalVO.getEmpCd();
+		log.info("empCd : " + empCd);
+		
+		int getReceive  = 0;
+		
+		getReceive  = this.approvalService.getReceive(empCd);
+		
+		log.info("getReceive : " + getReceive);
+		return getReceive;
+	}
+	
+	//2. 결재내역 개수
+	//{"empCd" : empCd}
+	@ResponseBody
+	@PostMapping("/getReceiveCmp")
+	public int getReceiveCmp(@RequestBody ApprovalVO approvalVO) {
+		//ApprovalVO(apprNo=null, apprTit=null, regDt=null, formCon=null, empCd=220602003, ...
+		log.info("approvalVO : " + approvalVO);
+		
+		String empCd = approvalVO.getEmpCd();
+		log.info("empCd : " + empCd);
+		
+		int getReceiveCmp  = 0;
+		
+		getReceiveCmp  = this.approvalService.getReceiveCmp(empCd);
+		
+		log.info("getReceiveCmp : " + getReceiveCmp);
+		return getReceiveCmp;
+	}
+	
+	//3. 진행결재 상신 개수
+	//{"empCd" : empCd}
+	@ResponseBody
+	@PostMapping("/getReport")
+	public int getReport(@RequestBody LineSeqVO lineSeqVO) {
+		//ApprovalVO(apprNo=null, apprTit=null, regDt=null, formCon=null, empCd=220602003, ...
+		log.info("lineSeqVO : " + lineSeqVO);
+		
+		String empCd = lineSeqVO.getEmpCd();
+		log.info("empCd : " + empCd);
+		
+		int getReport  = 0;
+		
+		getReport  = this.approvalService.getReport(empCd);
+		
+		log.info("getReport : " + getReport);
+		return getReport;
+	}
+	
+	//4. 완료결재 상신 개수
+	//{"empCd" : empCd}
+	@ResponseBody
+	@PostMapping("/getReportCmp")
+	public int getReportCmp(@RequestBody LineSeqVO lineSeqVO) {
+		//ApprovalVO(apprNo=null, apprTit=null, regDt=null, formCon=null, empCd=220602003, ...
+		log.info("lineSeqVO : " + lineSeqVO);
+		
+		String empCd = lineSeqVO.getEmpCd();
+		log.info("empCd : " + empCd);
+		
+		int getReportCmp  = 0;
+		
+		getReportCmp  = this.approvalService.getReportCmp(empCd);
+		
+		log.info("getReportCmp : " + getReportCmp);
+		return getReportCmp;
+	}
+	
+	//5. 반려결재 상신 개수
+	//{"empCd" : empCd}
+	@ResponseBody
+	@PostMapping("/getReportRet")
+	public int getReportRet(@RequestBody LineSeqVO lineSeqVO) {
+		//ApprovalVO(apprNo=null, apprTit=null, regDt=null, formCon=null, empCd=220602003, ...
+		log.info("lineSeqVO : " + lineSeqVO);
+		
+		String empCd = lineSeqVO.getEmpCd();
+		log.info("empCd : " + empCd);
+		
+		int getReportRet  = 0;
+		
+		getReportRet  = this.approvalService.getReportRet(empCd);
+		
+		log.info("getReport : " + getReportRet);
+		return getReportRet;
+	}
+	
 }
 
 

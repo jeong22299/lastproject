@@ -31,6 +31,66 @@
 		ORDER BY M.EML_DEND_DT DESC
 	</select>
 	
+	<!-- 메인화면 메일 리스트 -->
+	<select id="mainList" parameterType="String" resultType="egovframework.rte.psl.dataaccess.util.EgovMap">		
+		SELECT 
+			R.EML_CD 
+			, R.EML_CALL_CD 
+			, R.SER_NO 
+			, R.REC_NM 
+			, R.EML_REF_YN 
+			, CASE
+				WHEN R.EML_READ_YN = '1' THEN '읽음'
+				ELSE '읽지않음'
+			END AS LOC_NAME 
+			, R.EML_DEL_WH 
+			, M.EMP_CD 
+			, M.EML_TIT 
+			, M.EML_CON 
+			, M.EML_DEND_DT 
+			, M.EML_SIT_CD 
+			, M.EML_NO 
+			, R.EML_READ_YN,
+			M.EML_IMP_YN 
+		FROM RECEIVER R
+		LEFT OUTER JOIN MAIL M ON (R.EML_CD  = M.EML_CD)
+		WHERE R.EML_CALL_CD  = #{empCd} 
+		AND R.EML_DEL_WH != 'Y' 
+		AND ROWNUM &lt;= 5  
+		ORDER BY M.EML_DEND_DT DESC
+
+	</select>
+	
+	<!-- 관리자 메인화면 메일 리스트 -->
+	<select id="mainMailList" parameterType="String" resultType="egovframework.rte.psl.dataaccess.util.EgovMap">		
+		SELECT 
+			R.EML_CD 
+			, R.EML_CALL_CD 
+			, R.SER_NO 
+			, R.REC_NM 
+			, R.EML_REF_YN 
+			, CASE
+				WHEN R.EML_READ_YN = '1' THEN '읽음'
+				ELSE '읽지않음'
+			END AS LOC_NAME 
+			, R.EML_DEL_WH 
+			, M.EMP_CD 
+			, M.EML_TIT 
+			, M.EML_CON 
+			, M.EML_DEND_DT 
+			, M.EML_SIT_CD 
+			, M.EML_NO 
+			, R.EML_READ_YN,
+			M.EML_IMP_YN 
+		FROM RECEIVER R
+		LEFT OUTER JOIN MAIL M ON (R.EML_CD  = M.EML_CD)
+		WHERE R.EML_CALL_CD  = #{empCd} 
+		AND R.EML_DEL_WH != 'Y' 
+		AND ROWNUM &lt;= 5  
+		ORDER BY M.EML_DEND_DT DESC
+
+	</select>
+	
 	<!-- 메일 상세 -->
 	<select id="selectMailDetail" parameterType="String" resultType="com.sw.ddit.mail.vo.MailVO">
 		SELECT 

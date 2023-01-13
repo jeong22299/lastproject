@@ -151,9 +151,27 @@ public class AttendanceController {
 			 time2 += dateNon.getTime() - dateAtt.getTime();
 		}
 		
-		String weekAttSeconds = time2/(1000*60*60)%60 +"";
-		String weekAttMin = (time2/(1000*60))%60 + "";
-		String weekAttHour = time2/(1000*60*60) +"";
+		// 초
+		long weekSeconds = (time2/1000)%60;
+		String weekAttSeconds = weekSeconds+"";
+		if(weekSeconds< 10) {
+			weekAttSeconds = "0"+ weekSeconds;
+		}
+
+		// 분
+		long weekMin = (time2/(1000*60))%60;
+		String weekAttMin = weekMin+ "";
+		if(weekMin<10) {
+			weekAttMin ="0"+weekMin;
+		}
+		
+		long weekHour = time2/(1000*60*60);
+		String weekAttHour = weekHour +"";
+		if(weekHour <10) {
+			weekAttHour = "0"+weekHour;
+		}
+		
+		log.info("new Time : " + weekAttHour+"h "+weekAttMin+"m "+weekAttSeconds+"s");
 		
 		attend.setAffAtt(weekAttHour+"h "+weekAttMin+"m "+weekAttSeconds+"s");
 		log.info("new Time : " + attend);
@@ -178,11 +196,25 @@ public class AttendanceController {
 			Date dateNon = newDate.parse(monthTime.get(i).getNonAtt());
 			time2 += dateNon.getTime() - dateAtt.getTime();
 		}
+		long second =(time2/1000)%60;
+		String monthAttSeconds = second +"";
+		if(second <10) {
+			monthAttSeconds = "0"+second;
+		}
 		
-		String monthAttSeconds = time2/(1000*60*60)%60 +"";
-		String monthAttMin = (time2/(1000*60))%60 + "";
-		String monthAttHour = time2/(1000*60*60) +"";
+		long monthMin = (time2/(1000*60))%60;
+		String monthAttMin = monthMin + "";
+		if(monthMin < 10) {
+			monthAttMin = "0" + monthMin;
+		}
 		
+		long monthHour = time2/(1000*60*60);
+		String monthAttHour =monthHour+"";
+		if(monthHour < 10) {
+			monthAttHour = "0" + monthHour;
+		}
+		
+		log.info("12345 ::" + monthAttHour+"h "+monthAttMin+"m "+monthAttSeconds+"s");
 		
 		attend.setAffAtt(monthAttHour+"h "+monthAttMin+"m "+monthAttSeconds+"s");
 		newTime.add(attend);

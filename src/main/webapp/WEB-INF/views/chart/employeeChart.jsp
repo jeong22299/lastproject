@@ -12,14 +12,14 @@
       google.charts.setOnLoadCallback(drawChart);
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['cnt', 'cnt per Year'],
+          ['입/퇴사자', '인원(명)'],
           ['입사자 수', ${signempcnt}],
           ['퇴사자 수', ${leaveempcnt}]
         ]);
 
         var options = {
       	  colors:['#9990fd','#6259ca'],
-          title:'금년 입/퇴사자 수 통계',
+          title:'금년 입/퇴사자 수 현황',
           pieHole: 0.4,
           pieSliceText: 'value',
           fontSize: 25,

@@ -92,6 +92,11 @@ public class NoticeServiceImpl implements NoticeService {
 	public int deleteFile(AttachFileVO acthVO) {
 		return noticeMapper.deleteFile(acthVO);
 	}
+
+	@Override
+	public List mainNotiList() {
+		return noticeMapper.mainNotiList();
+	}
 	
 	
 }

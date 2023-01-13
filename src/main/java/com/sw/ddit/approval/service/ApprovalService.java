@@ -42,7 +42,7 @@ public interface ApprovalService {
 	public int updateSign2(String apprNo);
 	
 	// 결재완료
-	public int apprEnd();
+	public int apprEnd(String empNm);
 	/*
 	 * // 나만의 방식 public int payformInsert2(Map<String, Object> apprVO);
 	 */
@@ -62,4 +62,20 @@ public interface ApprovalService {
 
 	//apprNo 생성
 	public String getApprNo();
+	
+	// 요청결재 수신 개수
+	public int getReceive(String empCd);
+	
+	// 결재내역 개수 수신
+	public int getReceiveCmp(String empCd);
+	
+	// 진행결재 상신 개수
+	public int getReport(String empCd);
+	
+	// 완료결재 상신 상신 개수
+	public int getReportCmp(String empCd);
+	
+	// 반려결재 상신 상신 개수
+	public int getReportRet(String empCd);
+	
 }

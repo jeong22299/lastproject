@@ -33,6 +33,8 @@ public interface NoticeService {
 	
 	// 첨부파일 삭제
 	public int deleteFile(AttachFileVO acthVO);
+
+	public List mainNotiList();
 	
 
 }

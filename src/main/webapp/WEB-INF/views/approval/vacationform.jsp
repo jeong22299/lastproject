@@ -118,13 +118,14 @@ body {padding:0;}
 </head>
 
 <body>
+
 <!-- 	<a class="btn ripple btn-primary" data-bs-target="#modaldemo1"  id="modal" data-bs-toggle="modal" href="">조직도</a> -->
     <div class="hpa" style="width:210mm;height:297mm;">
-                <input id="depCd" type="text" value="<sec:authentication property="principal.employeeVO.depCd" />">
-                <input id="empCode1" type="text" value="<sec:authentication property="principal.employeeVO.empCd" />">
-                <input id="empCode2" type="text" value="">
-                <input id="empCode3" type="text" value="">
-                <input id="empCode4" type="text" value="">
+                <input id="depCd" type="hidden" value="<sec:authentication property="principal.employeeVO.depCd" />">
+                <input id="empCode1" type="hidden" value="<sec:authentication property="principal.employeeVO.empCd" />">
+                <input id="empCode2" type="hidden" value="">
+                <input id="empCode3" type="hidden" value="">
+                <input id="empCode4" type="hidden" value="">
         <div class="hcD" style="left:10mm;top:24.99mm;">
             <div class="hcI">
                 <div class="hls ps0"
@@ -253,7 +254,7 @@ body {padding:0;}
                                         <div class="hcI" style="top:0.64mm;">
                                             <div class="hls ps14" name="linePO1" id="linePO1"
                                                 style="line-height:3.10mm;white-space:nowrap;left:0mm;top:-0.19mm;height:3.88mm;width:15.64mm;">
-                                                담  당
+                                             <p style="font-size:12px; text-align: center;"> ${empInfo[0].posiCd} ${empInfo[0].empNm}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -304,11 +305,11 @@ body {padding:0;}
                                 </div>
                                 <div class="hce" style="left:151.84mm;top:6.15mm;width:16.64mm;height:12.30mm;">
 	                                <div class="hls ps14" name="lineNm4" id="lineNm4"
-	                                    style="line-height:3.10mm;white-space:nowrap;left:0mm;top:-0.19mm;height:3.88mm;width:15.65mm;">4
+	                                    style="line-height:3.10mm;white-space:nowrap;left:0mm;top:-0.19mm;height:3.88mm;width:15.65mm;">
 	                                </div>
                                 </div>
                             </div>
-                                <a class="btn ripple btn-primary" data-bs-target="#modaldemo1"  id="modal" data-bs-toggle="modal" href="">결재선</a>
+                                <a class="btn ripple btn-primary btn-sm" data-bs-target="#modaldemo1"  id="modal" data-bs-toggle="modal" href="">결재선</a>
                         </div>
                     </div>
                 </div>
@@ -475,9 +476,9 @@ body {padding:0;}
             </div>
             <!-- 참고 -->
             <!--  -->
-			<button class="btn ripple btn-light" id="btnVac" 
+			<button class="btn ripple btn-primary" id="btnVac" 
 				type="button" style="position: absolute; top: 100%;">등록하기</button>
-			<button class="btn ripple btn-light" id="vacCancle" 
+			<button class="btn ripple btn-dark" id="vacCancle" 
 				type="button" style="position: absolute; top: 100%; left: 12%;">취소하기</button>
 		</div>
 </div>
@@ -488,7 +489,7 @@ body {padding:0;}
 		<div class="modal-content modal-content-demo">
 			<div class="modal-header">
 				<h6 class="modal-title">조직도</h6>
-				<input type="text" id="nodeId2" value="<sec:authentication property="principal.employeeVO.empCd" />"/>
+				<input type="hidden" id="nodeId2" value="<sec:authentication property="principal.employeeVO.empCd" />"/>
 				<button aria-label="Close" class="btn-close btn=-sm" data-bs-dismiss="modal" type="button"></button>
 			</div>
 			<div class="modal-body"  >
@@ -531,7 +532,7 @@ body {padding:0;}
 				
 			<div class="modal-footer">
 				<button class="btn ripple btn-primary" type="button" id="btnSave">확인</button>
-				<button class="btn ripple btn-secondary" data-bs-dismiss="modal" type="button" id="btnClose">Close</button>
+		
 			</div>
 		</div>
 	</div>
@@ -707,9 +708,9 @@ $(function() {
 		let AlineName2 = $("input[name=lineName2]").val();
 		let AlineName3 = $("input[name=lineName3]").val();
 		
-		$("#linePO2").text(AlineName1.substr(0, 2));
-		$("#linePO3").text(AlineName2.substr(0, 2));
-		$("#linePO4").text(AlineName3.substr(0, 2));
+		$("#linePO2").append("<p style='font-size:12px; text-align: center;''>"+AlineName1+"</p>");
+		$("#linePO3").append("<p style='font-size:12px; text-align: center;''>"+AlineName2+"</p>");
+		$("#linePO4").append("<p style='font-size:12px; text-align: center;''>"+AlineName3+"</p>");
 		
 		if(AlineName2 == "" || AlineName1 == "" || AlineName3 == ""){
 			alert("선택되지 않은 결재자가 존재합니다.");
@@ -822,7 +823,7 @@ $(function(){
 		let data = {"appTit":apprTit, "depCd":depCd, "depNm":depNm, "empCd": empCd, "formCon":formCon, "empCode":empCode};
 		
 		if(endDate==""||staDate==""||con==""){
-			alert("입력하세요");
+			alert("필수사항을 모두 입력하세요");
 			return
 		}
 		

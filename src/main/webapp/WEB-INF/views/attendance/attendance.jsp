@@ -16,7 +16,7 @@
 				출퇴근
 				<input type="hidden" name="empCd"  id="empCd" value="<sec:authentication property='principal.employeeVO.empCd' />" />
 				<input type="hidden"  id="affAtt" value=""/>
-				<input type="hidden"  id="nonAtt" value=""/>
+				<input type="hidden"  id="nonAtt" />
 				<input type="hidden"  id="myDep" value="<sec:authentication property='principal.employeeVO.depCd' />" />
 			</div>
 			<div class="card-body">
@@ -78,18 +78,18 @@
 				<div class="col-xl-4 col-lg-6 col-sm-6 pe-0 ps-0 border-end">
 					<div class="card-body text-center">
 						<h6 class="mb-0">오늘 근무시간</h6>
-						<h2 id="time"  class="mb-1 mt-2 number-font text-primary">00h 00m</h2>
+						<h2 id="time"  class="mb-1 mt-2 number-font text-primary">00h 00m 00s</h2>
 					</div>
 				</div>
 				<div class="col-xl-4 col-lg-6 col-sm-6 pe-0 ps-0 border-end">
 					<div class="card-body text-center">
-						<h6 class="mb-0">이번주 근무시간</h6>
+						<h6 class="mb-0">이번 주 근무시간</h6>
 						<h2 class="mb-1 mt-2 number-font text-primary" id="weekTime"></h2>
 					</div>
 				</div>
 				<div class="col-xl-4 col-lg-6 col-sm-6 pe-0 ps-0">
 					<div class="card-body text-center">
-						<h6 class="mb-0">이번달 근무시간</h6>
+						<h6 class="mb-0">이번 달 근무시간</h6>
 						<h2 class="mb-1 mt-2 number-font text-primary" id="monthTime"></h2>
 					</div>
 				</div>
@@ -136,18 +136,23 @@ function dutyTime(){
 	
     let riri = String(hours - hour).padStart(2, "0");
 	let mimi =  String(minutes - min).padStart(2, "0");
+	let sese = String(seconds - second).padStart(2, "0");
 	
 	if(mimi<0){
 		riri = (riri-1);
 		mimi = (60-Math.abs(mimi));
 	}
+	if(sese < 0){
+		mimi = (mimi-1);
+		sese =  (60-Math.abs(sese));
+	}
 	
 	if(aff ==""){
 		time.text();
 	}else{
-		time.text(riri+"h "+mimi+"m");		
+		time.text(String(riri).padStart(2, "0")+"h "+String(mimi).padStart(2, "0")+"m " +String(sese).padStart(2, "0") + "s" );		
 	}
-	
+	console.log("time1 : " + riri+"h "+mimi+"m");
 }
 
 function goAway(){
@@ -163,28 +168,26 @@ function goAway(){
 	let hour2 = noff.substring(0,2);
 	let min2 = noff.substring(3,5);
 	let second2 = noff.substring(6,8);
-	let hh = String(hour2 - hour).padStart(2, "0");
-	let mm =  String(min2 - min).padStart(2, "0");
+	
+	let hh = (hour2 - hour);
+	let mm =  (min2 - min);
+	let ss =  (second2 - second);
 	
 	if(mm<0){
 		hh =(hh-1);
 		mm = (60-Math.abs(mm));
 	}
+	if(ss<0){
+		mm =(mm-1);
+		ss = (60-Math.abs(ss));
+	}
 	
-	time.text(hh+"h "+mm+"m");			
+	time.text(String(hh).padStart(2, "0")+"h "+ String(mm).padStart(2, "0")+"m " +  String(ss).padStart(2, "0") + "s");			
+	console.log("time : " + hh+"h "+mm+"m");
+
 }
 
 
-$(function(){
-	setTimeout(dutyTime,100);
-	let timer = setInterval(dutyTime, 10000);
-	
-	let leave = $("#nonAtt").val();
-	if(leave == "" || leave == null){
-		clearInterval(timer);
-		setTimeout(goAway, 500);
-	}
-});
 
 
 </script>
@@ -628,6 +631,22 @@ $(function(){
 	});
 });
 
+$(function(){
+	let timer;
+	let leave = $("#nonAtt").val();
+	console.log("leave" , leave);
+	
+	if(leave == " " || leave =="" || leave ==null){
+		setTimeout(dutyTime,100);
+		console.log("leave" , leave);
+		timer = setInterval(dutyTime, 1000);
+	}else{
+		console.log("제발멈춰");
+		clearInterval(timer);
+		goAway()
+		setTimeout(goAway, 100);
+	}
+});
 	
 </script>
 

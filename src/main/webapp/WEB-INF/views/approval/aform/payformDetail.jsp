@@ -22,6 +22,7 @@
 <script src="/resources/js/jstree.min.js"></script>
 <link rel="stylesheet" href="/resources/css/jstreeStyle.min.css" />
 
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
 <!-- Internal Quill css-->
@@ -31,9 +32,6 @@
 <!-- Internal richtext css-->
 <link rel="stylesheet" href="/resources/assets/plugins/wysiwyag/richtext.css">
 <link href="/resources/assets/plugins/sweet-alert/sweetalert.css" rel="stylesheet">
-<!-- Internal Sweet-Alert js -->
-	<script src="/resources/assets/plugins/sweet-alert/sweetalert.min.js"></script>
-	<script src="/resources/assets/plugins/sweet-alert/jquery.sweet-alert.js"></script>
 	
 <title>payform</title>
     
@@ -143,24 +141,35 @@ body {padding:0;}
 <input id="apprNo" type="hidden" value="${apprVO.apprNo}">
 <input id="loadSign" type="hidden" value="">
     <div class="hpa" style="width:210mm;height:297mm;">
+    
+    
 			<div>
-			<input name="line0" id="payCode0" type="text" value="${apprCdMap.lineCode0}"> 
-			<input name="line1" id="payCode1" type="text" value="${apprCdMap.lineCode1}"> 
-			<input name="line2" id="payCode2" type="text" value="${apprCdMap.lineCode2}">
-			<input name="line3" id="payCode3" type="text" value="${apprCdMap.lineCode3}">
+			<input name="line0" id="payCode0" type="hidden" value="${apprCdMap.lineCode0}"> 
+			<input name="line1" id="payCode1" type="hidden" value="${apprCdMap.lineCode1}"> 
+			<input name="line2" id="payCode2" type="hidden" value="${apprCdMap.lineCode2}">
+			<input name="line3" id="payCode3" type="hidden" value="${apprCdMap.lineCode3}">
 			
 			</div>
+			
+			
+			
 			<div>
-			<input name="lineSign0" id="empName0" type="text" value="${apprSignMap.sign0}"> 
-			<input name="lineSign1" id="empName1" type="text" value="${apprSignMap.sign1}"> 
-			<input name="lineSign2" id="empName2" type="text" value="${apprSignMap.sign2}">
-			<input name="lineSign3" id="empName3" type="text" value="${apprSignMap.sign3}">
+			<input name="lineSign0" id="empName0" type="hidden" value="${apprSignMap.sign0}"> 
+			<input name="lineSign1" id="empName1" type="hidden" value="${apprSignMap.sign1}"> 
+			<input name="lineSign2" id="empName2" type="hidden" value="${apprSignMap.sign2}">
+			<input name="lineSign3" id="empName3" type="hidden" value="${apprSignMap.sign3}">
 			</div>
-			<input name="apprTit" type="text" value="지출결의서" >
-			<input name="formNo" type="text" value="1" style="width: 50px">
-			<input name="apprSitCd" type="text" value="A01" style="width: 50px">
-			<input id="empCd" name="empCd" type="text" value="<sec:authentication property='principal.employeeVO.empCd'/>">
-			<input id="depCd" name="depCd" type="text" value="<sec:authentication property='principal.employeeVO.depCd'/>">
+			
+			<div>
+			<input name="apprSitCd0" id="apprSitCd0" type="hidden" value="${apprSitCdMap.apprSitCd0}"> 
+			<input name="apprSitCd1" id="apprSitCd1" type="hidden" value="${apprSitCdMap.apprSitCd1}"> 
+			<input name="apprSitCd2" id="apprSitCd2" type="hidden" value="${apprSitCdMap.apprSitCd2}">
+			<input name="apprSitCd3" id="apprSitCd3" type="hidden" value="${apprSitCdMap.apprSitCd3}">
+			</div>
+			
+			<input name="apprTit" type="hidden" value="지출결의서" >
+			<input id="empCd" name="empCd" type="hidden" value="<sec:authentication property='principal.employeeVO.empCd'/>">
+			<input id="depCd" name="depCd" type="hidden" value="<sec:authentication property='principal.employeeVO.depCd'/>">
 			<div class="hcD" style="left:10mm;top:24.99mm;">
             <div class="hcI">
                 <div class="hls ps0"
@@ -302,6 +311,9 @@ body {padding:0;}
                                         <div class="hcI" style="top:0.83mm;">
                                             <div class="hls ps19 line-name" style="line-height:3.10mm;white-space:nowrap;left:0mm;top:-0.19mm;height:3.88mm;width:18.41mm; font-size: 12px">
                                             	${apprNmMap.line0}
+                                            </div>
+                                            <div>
+                                            	<h5 class="font-weight-center" id="getReportRet"></h5>
                                             </div>
                                         </div>
                                     </div>
@@ -636,23 +648,15 @@ body {padding:0;}
 				<div class="hce"
 					style="left: 0mm; top: 163.88mm; width: 190.02mm; height: 83.47mm;">
 					<div class="hcD" style="left: 1.80mm; top: 0.50mm;">
-						<div>이곳이 파일?
+						<div>
 						</div>
 					</div>
 				</div>
 				<div class="paybuttonDisplay" id="paybuttonDisplay" style="display: none;">
-					<!-- 
-					<button class="btn ripple btn-light"  id="paySuccess" name="paySuccess" type="button" style="position: absolute; top: 100%;" >승인</button>
-		            <button class="btn ripple btn-light"  id="payFalse" name="payFalse" type="button" style="position: absolute; top: 100%; left: 8%;">반려</button>
-		            <button class="btn ripple btn-light"  id="backMain" name="backMain" type="button" style="position: absolute; top: 100%; left: 88%;">뒤로가기</button> -->
-					<button class="btn ripple btn-light" id="paySuccess" 
+					<button class="btn ripple btn-primary" id="paySuccess" 
 						type="button" style="position: absolute; top: 100%;">결재하기</button>
-					<button class="btn ripple btn-light" id="payCancle" 
-						type="button" style="position: absolute; top: 100%; left: 12%;">취소하기</button>
 					<a class="btn ripple btn-secondary" data-bs-target="#modaldemo2" data-bs-toggle="modal" href="" 
-					style="position: absolute; top: 100%; left: 90%;">반려</a>
-				
-				     
+					style="position: absolute; top: 100%; left: 12%;">반려하기</a>
 				</div>
         </div>
     </div>
@@ -678,147 +682,151 @@ body {padding:0;}
 </div>
 <!-- 모달 end -->
 
-<script type="text/javascript">
-	function dtl(){
-		
-		var header = "${_csrf.headerName}";
-		var token = "${_csrf.token}";
-		let apprNo = $('#apprNo').val();
-		
-		console.log('apprNo : ', apprNo);
-		$.ajax({
-			url: './apprDtlPost',
-			type: 'post',
-			data: {apprNo:apprNo},
-			beforeSend:function(xhr){
-				xhr.setRequestHeader(header, token);
-			},
-			success: function(result) {
-				for(let i=0; i<result.length; i++) {
-					if(result[i] != '' && result[i] != null) {
-						$('.sign-img').eq(i).attr('src', '/resources/profileSign/' + result[i]);
-						$('.sign-img').eq(i).css('display', 'block');
-					
-					} // if 문 끝
-				}// for문 끝
-			} // success 끝
-		}); // ajax 끝
-	}
+	<script type="text/javascript">
 	
-	// 결재 테이블 리턴
-	function apprReturn(){
-		var header = "${_csrf.headerName}";
-		var token = "${_csrf.token}";
-		let apprNo = $('#apprNo').val();
-		
-		let returnData = {"apprNo":apprNo};
-		
-		// 반려시 결재 테이블 업데이트
-		$.ajax({
-			url : '/approval/ReturnLine',
-			contentType : 'application/json;charset=utf-8',
-			type : 'post',
-			data : JSON.stringify(returnData),
-			beforeSend : function(xhr) {
-				xhr.setRequestHeader(header, token);
-			},
-			success : function(result1){
-				alert("여기오면 approval 테이블 업데이트된거");
-				console.log("result1" + result1);
-				window.close("반려되엇습니다 실행되면 이거나옴");
-			},
-			
-		}); // 결재 테이블 반려 ajax 종료문
-		
-	} // 종료
-	
-	
-	
-	$(function() {
-		
-		dtl();
-		
-		let empSign =  $('#emp-sign').val();
-		let ln;
-		let empNm = $('#emp-nm').val();
-		let nm;
-		let seq;
-		let apprNo = $('#apprNo').val();
-		let data = {
-			sign : empSign,
-			apprNo : apprNo
-		};
-		
-		 
-		 // 반려 이벤트 모드 ㅣ클릭주기 이벤트
-		$("#apprReaAdd").on("click", function() {
+		function dtl() {
+
 			var header = "${_csrf.headerName}";
 			var token = "${_csrf.token}";
-			let apprSitCd;
-			let apprRea =$("#apprRea").val();
-			
-			let updateData = {"apprNo":apprNo,"apprRea":apprRea};	
-			
-			// 결재라인 반려 업데이트 부분 시작 ajax
+			let apprNo = $('#apprNo').val();
+
+			console.log('apprNo : ', apprNo);
 			$.ajax({
-				url : '/approval/ReturnLine',
-				contentType : 'application/json;charset=utf-8',
+				url : './apprDtlPost',
 				type : 'post',
-				async : false,
-				data : JSON.stringify(updateData),
+				data : {
+					apprNo : apprNo
+				},
 				beforeSend : function(xhr) {
 					xhr.setRequestHeader(header, token);
 				},
 				success : function(result) {
-					//apprReturn();
+					for (let i = 0; i < result.length; i++) {
+						if (result[i] != '' && result[i] != null) {
+							$('.sign-img').eq(i).attr('src',
+									'/resources/profileSign/' + result[i]);
+							$('.sign-img').eq(i).css('display', 'block');
+							
+						} // if 문 끝
+
+					}// for문 끝
 					
-					alert("반려되었습니다.");
-					console.log("여기옴?")
-					console.log("result? : " + result);
-					//window.close("반려되엇습니다 실행되면 이거나옴");
-					let apprNo = $('#apprNo').val();
-					
-					let returnData = {"apprNo":apprNo};
-					
-					// 반려시 결재 테이블 업데이트
-					$.ajax({
-						url : '/approval/apprReturn',
-						contentType : 'application/json;charset=utf-8',
-						type : 'post',
-						async : false,
-						data : JSON.stringify(returnData),
-						beforeSend : function(xhr) {
-							xhr.setRequestHeader(header, token);
-						},
-						success : function(result1){
-							alert("여기오면 approval 테이블 업데이트된거");
-							console.log("result1" + result1);
-							window.close("반려되엇습니다 실행되면 이거나옴");
-						},
-						
-					});
-				},
-				error : function(error) {
-					console.log("반려되지 않았습니다. 에러 ");
-				}
-			}); // 반려 ajax 끝
-			
-		});// 반려 버튼 종료
-		 
-		 
-//////
-		$('#paySuccess').click(function() {
-			
-			// 사인 버튼
+				} // success 끝
+			}); // ajax 끝
+		}
+
+		// 결재 테이블 리턴
+		function apprReturn() {
 			var header = "${_csrf.headerName}";
 			var token = "${_csrf.token}";
+			let apprNo = $('#apprNo').val();
 
+			let returnData = {
+				"apprNo" : apprNo
+			};
+			
+
+			// 반려시 결재 테이블 업데이트
+			$.ajax({
+				url : '/approval/ReturnLine',
+				contentType : 'application/json;charset=utf-8',
+				type : 'post',
+				data : JSON.stringify(returnData),
+				beforeSend : function(xhr) {
+					xhr.setRequestHeader(header, token);
+				},
+				success : function(result1) {
+					//console.log("result1" + result1);
+				},
+
+			}); // 결재 테이블 반려 ajax 종료문
+
+		} // 종료
+
+		$(function() {
+			dtl();
+
+			let empSign = $('#emp-sign').val();
+			let ln;
+			let empNm = $('#emp-nm').val();
+			let nm;
+			let seq;
+			let apprNo = $('#apprNo').val();
+			let data = {
+				sign : empSign,
+				apprNo : apprNo
+			};
+
+			// 반려 이벤트 모드 ㅣ클릭주기 이벤트
+			$("#apprReaAdd").on("click", function() {
+				var header = "${_csrf.headerName}";
+				var token = "${_csrf.token}";
+				let apprSitCd;
+				let apprRea = $("#apprRea").val();
+
+				let updateData = {
+					"apprNo" : apprNo,
+					"apprRea" : apprRea
+				};
+
+				// 결재라인 반려 업데이트 부분 시작 ajax
+				$.ajax({
+					url : '/approval/ReturnLine',
+					contentType : 'application/json;charset=utf-8',
+					type : 'post',
+					async : false,
+					data : JSON.stringify(updateData),
+					beforeSend : function(xhr) {
+						xhr.setRequestHeader(header, token);
+					},
+					success : function(result) {
+						//apprReturn();
+						let apprNo = $('#apprNo').val();
+
+						let returnData = {
+							"apprNo" : apprNo
+						};
+
+						// 반려시 결재 테이블 업데이트
+						$.ajax({
+							url : '/approval/apprReturn',
+							contentType : 'application/json;charset=utf-8',
+							type : 'post',
+							async : false,
+							data : JSON.stringify(returnData),
+							beforeSend : function(xhr) {
+								xhr.setRequestHeader(header, token);
+							},
+							success : function(result1) {
+								swal("반려되었습니다.","성공적으로 진행되었습니다. ","success");
+								setTimeout('window.close()', 1000);
+								console.log("result1" + result1);
+							},
+									
+						});
+					},
+					error : function(error) {
+						console.log("반려되지 않았습니다. 에러 ");
+					}
+				}); // 반려 ajax 끝
+
+			});// 반려 버튼 종료
+
+			//////
+			$('#paySuccess').click(function() {
+				// 사인 버튼
+				var header = "${_csrf.headerName}";
+				var token = "${_csrf.token}";
+//JSON.stringify(data) : {"sign":"e9944ed6-bb53-4481-b2e0-fc3380a85045_220602003.png","apprNo":"A23011216","empNm":"윤동기"}
+				data.empNm = empNm;
+				console.log("JSON.stringify(data) : " + JSON.stringify(data));
+				
 				for (let i = 0; i < $('.line-name').length; i++) {
 					ln = $('.line-name').eq(i).text().trim().split(' ');
 					nm = ln[1];
 					if (nm == empNm) {
 						$.ajax({
-							url : './apprUpdateSign',
+							url : '/approval/apprUpdateSign',
 							contentType : 'application/json;charset=utf-8',
 							type : 'post',
 							data : JSON.stringify(data),
@@ -827,53 +835,55 @@ body {padding:0;}
 							},
 							success : function(result) {
 								dtl();
-								alert("승인하였습니다.");
-								window.close();
+								//alert("여기 오긴함?");
+								swal("승인완료", "승인되었습니다.","success");
+								setTimeout('window.close()', 1000);
 							},
 							error : function(error) {
 								console.log("에러입니다");
 							}
 						});
 					}
-				}
+				}//end for
 
-		}); //조회수 이벤트 종료
+			}); //조회수 이벤트 종료
 
-		// 버튼 조건 주기		
-		let loginEmpCd = $("#empCd").val();
+			//  승인 및 반려버튼 조건 주기		
+			let loginEmpCd = $("#empCd").val();
+			
+			
+			let line1 = $("#payCode1").val();
+			let line2 = $("#payCode2").val();
+			let line3 = $("#payCode3").val();
 
-		console.log("loginEmpCd " + loginEmpCd);
+			
+			console.log("loginEmpCd " + loginEmpCd);
+			console.log("#line1 " + line1);
+			
+			let apprSitCd0 = $("#apprSitCd0").val();
+			let apprSitCd1 = $("#apprSitCd1").val();
+			let apprSitCd2 = $("#apprSitCd2").val();
+			let apprSitCd3 = $("#apprSitCd3").val();
 
-		let line0 = $("#payCode0").val();
-		let line1 = $("#payCode1").val();
-		let line2 = $("#payCode2").val();
-		let line3 = $("#payCode3").val();
+			console.log("apprSitCd0 " + apprSitCd0);
 
-		console.log("line0 " + line0);
+			$(document).ready(
+					function() {
+						$(".paybuttonDisplay").change(
+								function() {
+									if ((apprSitCd1 == 'A01' && loginEmpCd == line1)  || (apprSitCd2 == 'A01' &&  loginEmpCd == line2 ) || (apprSitCd3 == 'A01' && loginEmpCd == line3)   ) {
+										$('.paybuttonDisplay').css('display',
+												'block');
+										//console.log("오긴하냐??");
+									} // if문 종료
+								});// 버튼 이벤트 종료 
 
-		$(document).ready(
-				function() {
-					$(".paybuttonDisplay").change(
-							function() {
-								if (loginEmpCd == line1 || loginEmpCd == line2
-										|| loginEmpCd == line3) {
-									alert("오긴함?");
-									$('.paybuttonDisplay').css('display',
-											'block');
-									console.log("오긴하냐??");
-								} // if문 종료
-							});// 버튼 이벤트 종료 
+						$('.paybuttonDisplay').trigger('change');
 
-					$('.paybuttonDisplay').trigger('change');
-
-				});// 버튼트리거 상태 종료
-
-/* 		// 1-1)#paySuccess 이벤트 id 변경 시작 
-		let apprRea = $("#apprRea").val(); // 반려사유
-		console.log("apprNo : " + apprNo); */
-
-	}); // 메인 부분 종료
-</script>
+					});// 버튼트리거 상태 종료
+ 
+		}); // 메인 부분 종료
+	</script>
 
 
 

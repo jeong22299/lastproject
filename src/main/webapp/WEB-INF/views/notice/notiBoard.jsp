@@ -26,7 +26,9 @@ div.dataTables_paginate ul.pagination {
 	justify-content: flex-end;
 }
 </style>
-<div class="card">
+<div style="text-align: center;">
+	<h1 id="reload_target">공지사항</h1><br>
+</div>
 	<div class="card-body">
 		<div id="example3_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
 			<div class="row">
@@ -87,7 +89,6 @@ div.dataTables_paginate ul.pagination {
 		</div>
 		</sec:authorize>
 	</div>
-</div>
 
 <script type="text/javascript">
 	// table dnd

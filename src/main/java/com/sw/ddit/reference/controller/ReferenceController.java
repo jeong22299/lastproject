@@ -160,7 +160,7 @@ public class ReferenceController {
 		log.info("uploadFile: "+ uploadFile[0].getOriginalFilename());
 //		log.info("filecon: "  + filecon);
 		// 업로드 폴더 설정
-		String uploadFolder = "C:\\eGovFrameDev-3.10.0-64bit\\workspace\\Starworks\\src\\main\\webapp\\resources\\refeUpload";
+		String uploadFolder = "D:\\A_TeachingMaterial\\7.LastProject\\workspace\\Starworks\\src\\main\\webapp\\resources\\refeUpload";
 
 		// 연월일 폴더 생성
 		File uploadPath = new File(uploadFolder, getFolder());

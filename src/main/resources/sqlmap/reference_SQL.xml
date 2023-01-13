@@ -42,6 +42,7 @@
 	         , B.EMP_NM
 		FROM TOTAL_REFE A, EMPLOYEE B
 		WHERE A.EMP_CD = B.EMP_CD
+		ORDER BY A.REG_TI DESC
 	</select>
 	<select id="downlist" parameterType="String" resultType="totalRefeVO">
 		SELECT A.REFE_CD

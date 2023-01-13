@@ -29,7 +29,7 @@
 <div >
 <sec:authentication property="principal.employeeVO.empCd" var="prcEmpCd"/>
 <sec:authentication property="principal.employeeVO.depCd" var="prcDepCd"/>
-<input type="hidden" name="personal" value="personal"/>
+<input type="hidden" name="department" value="department"/>
 		<div>
 			<button type="button" id="${stat.count}" class="btn ripple btn-danger btn delbtn">삭제</button>
 			<button type="button" id="${stat.count}" class="btn aaa btn-primary btn downloadbtn" ><i class="fe fe-download"></i> 다운로드</button>
@@ -76,10 +76,10 @@
 							<input type="hidden" id="refeCd${stat.count}" name="refeCd" value="${totalRefeVO.refeCd}"/>
 							<input type="hidden" class="refeFileNm" id="refeFileNm${stat.count}" name="refeFileNm" value="${totalRefeVO.refeFileNm}"/> 
 							<input type="hidden" class="selcount" id="${stat.count}" />
-							<td class="tdchk""><input type="checkbox" name="chkList" id="chkbox" value="${totalRefeVO.refeCd}"/></td>
-							<td><a href="/reference/detail?refeCd=${totalRefeVO.refeCd}">${totalRefeVO.refeFileOrgNm}</a></td>
+							<td class="tdchk"><input type="checkbox" name="chkList" id="chkbox" value="${totalRefeVO.refeCd}"/></td>
+							<td id="uploadnm"><a href="/reference/detail?refeCd=${totalRefeVO.refeCd}">${totalRefeVO.refeFileOrgNm}</a></td>
 							<td>${totalRefeVO.employeeVOList[0].empNm}</td>
-							<td><fmt:formatDate value="${totalRefeVO.regTi}" pattern="yy년MM월dd일  hh시mm분"/></td>
+							<td><fmt:formatDate value="${totalRefeVO.regTi}" pattern="yy년MM월dd일  HH시mm분"/></td>
 							<td><fmt:formatNumber value='${totalRefeVO.viewCnt}' pattern='#,###' /></td>
 						</tr>
 					</c:if>
@@ -167,7 +167,7 @@ $(".downloadbtn").on("click", function() {
 });
 
 
-let refeNm = $("input[name=personal]").val();
+let refeNm = $("input[name=department]").val();
   $('#thefiles').FancyFileUpload({
      url : '/reference/uploadAjaxAction',
      params : {
@@ -205,21 +205,11 @@ let refeNm = $("input[name=personal]").val();
                   if(result.status>0){
                           $('.ff_fileupload_fileinfo').text('complete');
                           $('.ff_fileupload_progress_bar').css('width', '100%');
+                          swal("업로드가 완료되었습니다.");
                        }setTimeout(function(){
                           data.ff_info.RemoveFile();
-                          location.href="/reference/personal";
+                          location.href="/reference/department";
                     },1500);
-//                    if(result.status>0){//다중 insert 성공
-//                       Toast.fire({
-//                            icon: 'success',
-//                            title: '등록 성공했어요!~!'
-//                          })
-//                    }else{//다중 insert 실패
-//                       Toast.fire({
-//                       icon:'error',
-//                        title: '실---패----'
-//                       })
-//                    }
                }
          });
      }
@@ -239,12 +229,6 @@ $(".delbtn").on("click", function() {
    if (cnt > 0) {
       let con = confirm("선택한 파일 "+ cnt + "개를 삭제하시겠습니까?");
       if(con==true){
-//          let id = $(this).attr("id");
-        
-//          let refeCd = $("#refeCd"+id).val();
-//          console.log("refeCd: " + refeCd);
-        
-//          let data ={"refeCd":refeCd};
          let header="${_csrf.headerName}";
          let token="${_csrf.token}";
          $.ajax({
@@ -258,7 +242,8 @@ $(".delbtn").on("click", function() {
             success:(function(result){
                console.log("result: " + JSON.stringify(result))
                if(result.toLowerCase()=="ok"){
-                  location.href="/reference/personal"
+            	   swal("삭제되었습니다.");
+                  location.href="/reference/department"
                }else{
                   alert("삭제가 되지 않았습니다.");
                }
@@ -314,11 +299,6 @@ $("#searchBtn").click(function() {
 });
 </script>
 <script type="text/javascript">
-function selChange() {
-	var sel = document.getElementById('cntPerPage').value;
-	location.href="/reference/personal?nowPage=${paging.nowPage}&cntPerPage="+sel;
-}
-
 function fn_download(){
    let refeFileNm = sessionStorage.getItem("refeFileNm");
    console.log("refeFileNm2 : " +  refeFileNm);

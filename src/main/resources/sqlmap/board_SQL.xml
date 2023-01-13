@@ -29,6 +29,27 @@
 	
 	</select>
 	
+	<!-- 메인 커뮤니티 리스트 조회 -->
+	<select id="mainCommuList" resultType="egovframework.rte.psl.dataaccess.util.EgovMap">
+		SELECT 
+			A.COM_NO
+			, A.EMP_CD
+			, A.TIT
+			, A.CON
+			, TO_CHAR(A.REG_DT,'YY"년 "MM"월 "DD"일"') REG_DT
+			, A.VIEW_CNT
+			, B.EMP_NM
+			, A.HIT_CNT
+			, A.DE_HIT_CNT
+	        , (SELECT  COUNT(CMMT_NO)
+	           FROM    COM_CMMT
+	           WHERE   COM_NO = A.COM_NO) as COM_CMMT
+		FROM COMMUNITY A
+		LEFT OUTER JOIN EMPLOYEE B ON (A.EMP_CD = B.EMP_CD)
+		WHERE ROWNUM &lt;= 5
+		ORDER BY A.COM_NO 
+	</select>
+	
 	<!-- 커뮤니티 상세 조회 -->
 	<select id="selectCommuDetail" parameterType="com.sw.ddit.commu.vo.CommuVO" resultType="com.sw.ddit.commu.vo.CommuVO">
 		SELECT 

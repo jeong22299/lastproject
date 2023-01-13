@@ -55,7 +55,7 @@
 												<div class="card-footer text-center">
 												<c:choose>
 													<c:when test="${payCd eq 1}">
-														<a class="btn ripple btn-danger btn-block" id="basic" style="text-color:white;">무료 체험중</a>
+														<a class="btn ripple btn-danger btn-block" style="text-color:white;">무료 체험중</a>
 													</c:when>
 													<c:otherwise>
 														<a class="btn ripple btn-danger btn-block" id="basic">무료체험</a>
@@ -85,7 +85,7 @@
 												<div class="card-footer text-center">
 													<c:choose>
 													<c:when test="${payCd eq 2}">
-														<a class="btn ripple btn-secondary btn-block" id="standard">구독중</a>
+														<a class="btn ripple btn-secondary btn-block" >구독중</a>
 													</c:when>
 													<c:otherwise>
 														<a class="btn ripple btn-secondary btn-block" id="standard">구독하기</a>
@@ -115,7 +115,7 @@
 												<div class="card-footer text-center">
 													<c:choose>
 													<c:when test="${payCd eq 3}">
-														<a class="btn ripple btn-primary btn-block" id="premium" style="text-color:white;">구독중</a>
+														<a class="btn ripple btn-primary btn-block" style="text-color:white;">구독중</a>
 													</c:when>
 													<c:otherwise>
 														<a class="btn ripple btn-primary btn-block" id="premium">구독하기</a>
@@ -149,7 +149,7 @@
 												<div class="card-footer text-center">
 													<c:choose>
 													<c:when test="${payCd eq 1}">
-														<a class="btn ripple btn-danger btn-block" id="basicM" style="text-color:white;">무료 체험중</a>
+														<a class="btn ripple btn-danger btn-block" style="text-color:white;">무료 체험중</a>
 													</c:when>
 													<c:otherwise>
 														<a class="btn ripple btn-danger btn-block" id="basicM">무료체험</a>
@@ -179,9 +179,9 @@
 												<div class="card-footer text-center">
 													<c:choose>
 													<c:when test="${payCd eq 2}">
-														<a class="btn ripple btn-secondary btn-block" id="standardM" style="text-color:white;">구독중</a>
+														<a class="btn ripple btn-secondary btn-block"  style="text-color:white;">구독중</a>
 													</c:when>
-													<c:otherwise>
+													<c:otherwise> 
 														<a class="btn ripple btn-secondary btn-block" id="standardM">구독하기</a>
 													</c:otherwise>
 												</c:choose>
@@ -207,9 +207,9 @@
 													</ul>
 												</div>
 												<div class="card-footer text-center">
-													<c:choose>
+												<c:choose>
 													<c:when test="${payCd eq 3}">
-														<a class="btn ripple btn-primary btn-block" id="premiumM" style="text-color:white;">구독중</a>
+														<a class="btn ripple btn-primary btn-block" style="text-color:white;">구독중</a>
 													</c:when>
 													<c:otherwise>
 														<a class="btn ripple btn-primary btn-block" id="premiumM">구독하기</a>
@@ -248,7 +248,7 @@ let coCd = $("#coCd").val();
 			merchant_uid : 'merchant_' + new Date().getTime(),
 			name : 'STARWORKS베이직',
 			amount : 100,
-			buyer_email : 'dbsekdud11@naver.com',
+			buyer_email : '',
 			buyer_name : 'STARWORKS',
 			buyer_tel : '010-1234-5678',
 			buyer_addr : '서울특별시 강남구 삼성동',
@@ -273,15 +273,16 @@ let coCd = $("#coCd").val();
 						console.log("result: " , result);
 						if(result > 0){
 							var msg = '결제가 완료되었습니다. 다시 로그인 해주시기 바랍니다.';
-							alert(msg);
-							location.href = "javascript:logout()";
-						}
+							swal(msg);
+						}setTimeout(function(){
+	                          location.href = "javascript:logout()";
+	                    },2000);
 					})
 				});
 			} else {
 				var msg = '결제에 실패하였습니다.';
-				msg += '에러내용 : ' + rsp.error_msg;
-				alert(msg);
+				var msg2 = '에러내용 : ' + rsp.error_msg;
+				swal(msg,msg2,"");
 			}
 		});
 	}
@@ -298,8 +299,8 @@ let coCd = $("#coCd").val();
 			merchant_uid : 'merchant_' + new Date().getTime(),
 			name : 'STARWORKS스탠다드',
 			amount : 30000,
-			buyer_email : 'iamport@siot.do',
-			buyer_name : '구매자',
+			buyer_email : '',
+			buyer_name : 'STARWORKS',
 			buyer_tel : '010-1234-5678',
 			buyer_addr : '서울특별시 강남구 삼성동',
 			buyer_postcode : '123-456'
@@ -323,15 +324,16 @@ let coCd = $("#coCd").val();
 						console.log("result: " , result);
 						if(result > 0){
 							var msg = '결제가 완료되었습니다. 다시 로그인 해주시기 바랍니다.';
-							alert(msg);
-							location.href = "javascript:logout()";
-						}
+							swal(msg);
+						}setTimeout(function(){
+	                          location.href = "javascript:logout()";
+	                    },2000);
 					})
 				});
 			} else {
 				var msg = '결제에 실패하였습니다.';
-				msg += '에러내용 : ' + rsp.error_msg;
-				alert(msg);
+				var msg2 = '에러내용 : ' + rsp.error_msg;
+				swal(msg,msg2,"");
 			}
 		});
 	}
@@ -348,8 +350,8 @@ let coCd = $("#coCd").val();
 			merchant_uid : 'merchant_' + new Date().getTime(),
 			name : 'STARWORKS프리미엄',
 			amount : 50000,
-			buyer_email : 'iamport@siot.do',
-			buyer_name : '구매자',
+			buyer_email : '',
+			buyer_name : 'STARWORKS',
 			buyer_tel : '010-1234-5678',
 			buyer_addr : '서울특별시 강남구 삼성동',
 			buyer_postcode : '123-456'
@@ -373,15 +375,16 @@ let coCd = $("#coCd").val();
 						console.log("result: " , result);
 						if(result > 0){
 							var msg = '결제가 완료되었습니다. 다시 로그인 해주시기 바랍니다.';
-							alert(msg);
-							location.href = "javascript:logout()";
-						}
+							swal(msg);
+						}setTimeout(function(){
+	                          location.href = "javascript:logout()";
+	                    },2000);
 					})
 				});
 			} else {
 				var msg = '결제에 실패하였습니다.';
-				msg += '에러내용 : ' + rsp.error_msg;
-				alert(msg);
+				var msg2 = '에러내용 : ' + rsp.error_msg;
+				swal(msg,msg2,"");
 			}
 		});
 	}
@@ -397,8 +400,8 @@ let coCd = $("#coCd").val();
 			merchant_uid : 'merchant_' + new Date().getTime(),
 			name : 'STARWORKS베이직(월)',
 			amount : 10,
-			buyer_email : 'iamport@siot.do',
-			buyer_name : '구매자',
+			buyer_email : '',
+			buyer_name : 'STARWORKS',
 			buyer_tel : '010-1234-5678',
 			buyer_addr : '서울특별시 강남구 삼성동',
 			buyer_postcode : '123-456'
@@ -422,15 +425,16 @@ let coCd = $("#coCd").val();
 						console.log("result: " , result);
 						if(result > 0){
 							var msg = '결제가 완료되었습니다. 다시 로그인 해주시기 바랍니다.';
-							alert(msg);
-							location.href = "javascript:logout()";
-						}
+							swal(msg);
+						}setTimeout(function(){
+	                          location.href = "javascript:logout()";
+	                    },2000);
 					})
 				});
 			} else {
 				var msg = '결제에 실패하였습니다.';
-				msg += '에러내용 : ' + rsp.error_msg;
-				alert(msg);
+				var msg2 = '에러내용 : ' + rsp.error_msg;
+				swal(msg,msg2,"");
 			}
 		});
 	}
@@ -446,8 +450,8 @@ let coCd = $("#coCd").val();
 			merchant_uid : 'merchant_' + new Date().getTime(),
 			name : 'STARWORKS스탠다드(월)',
 			amount : 3000,
-			buyer_email : 'iamport@siot.do',
-			buyer_name : '구매자',
+			buyer_email : '',
+			buyer_name : 'STARWORKS',
 			buyer_tel : '010-1234-5678',
 			buyer_addr : '서울특별시 강남구 삼성동',
 			buyer_postcode : '123-456'
@@ -471,15 +475,16 @@ let coCd = $("#coCd").val();
 						console.log("result: " , result);
 						if(result > 0){
 							var msg = '결제가 완료되었습니다. 다시 로그인 해주시기 바랍니다.';
-							alert(msg);
-							location.href = "javascript:logout()";
-						}
+							swal(msg);
+						}setTimeout(function(){
+	                          location.href = "javascript:logout()";
+	                    },2000);
 					})
 				});
 			} else {
 				var msg = '결제에 실패하였습니다.';
-				msg += '에러내용 : ' + rsp.error_msg;
-				alert(msg);
+				var msg2 = '에러내용 : ' + rsp.error_msg;
+				swal(msg,msg2,"");
 			}
 		});
 	}
@@ -496,8 +501,8 @@ let coCd = $("#coCd").val();
 			merchant_uid : 'merchant_' + new Date().getTime(),
 			name : 'STARWORKS프리미엄(월)',
 			amount : 5000,
-			buyer_email : 'iamport@siot.do',
-			buyer_name : '구매자',
+			buyer_email : '',
+			buyer_name : 'STARWORKS',
 			buyer_tel : '010-1234-5678',
 			buyer_addr : '서울특별시 강남구 삼성동',
 			buyer_postcode : '123-456'
@@ -521,15 +526,16 @@ let coCd = $("#coCd").val();
 						console.log("result: " , result);
 						if(result > 0){
 							var msg = '결제가 완료되었습니다. 다시 로그인 해주시기 바랍니다.';
-							alert(msg);
-							location.href = "javascript:logout()";
-						}
+							swal(msg);
+						}setTimeout(function(){
+	                          location.href = "javascript:logout()";
+	                    },2000);
 					})
 				});
 			} else {
 				var msg = '결제에 실패하였습니다.';
-				msg += '에러내용 : ' + rsp.error_msg;
-				alert(msg);
+				var msg2 = '에러내용 : ' + rsp.error_msg;
+				swal(msg,msg2,"");
 			}
 		});
 	}

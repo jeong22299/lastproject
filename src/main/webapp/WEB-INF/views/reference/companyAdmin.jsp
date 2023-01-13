@@ -77,7 +77,7 @@
 							<td class="tdchk"><input type="checkbox" name="chkList" id="chkbox" value="${totalRefeVO.refeCd}"/></td>
 							<td><a href="/reference/detail?refeCd=${totalRefeVO.refeCd}">${totalRefeVO.refeFileOrgNm}</a></td>
 							<td>${totalRefeVO.employeeVOList[0].empNm}</td>
-							<td><fmt:formatDate value="${totalRefeVO.regTi}" pattern="yy년MM월dd일  hh시mm분"/></td>
+							<td><fmt:formatDate value="${totalRefeVO.regTi}" pattern="yy년MM월dd일  HH시mm분"/></td>
 							<td><fmt:formatNumber value='${totalRefeVO.viewCnt}' pattern='#,###' /></td>
 						</tr>
 					</c:if>
@@ -106,90 +106,6 @@
     </div>
 </div>
 <iframe id="ifrm" name="ifrm" style="display:none;"></iframe>
-<script type="text/javascript">
-$(document).ready(function() {
-	$("#chkAll").click(function() {
-		if($("#chkAll").is(":checked")) $("input[name=chkList]").prop("checked", true);
-		else $("input[name=chkList]").prop("checked", false);
-	});
-
-	$("input[name=chk]").click(function() {
-		var total = $("input[name=chkList]").length;
-		var checked = $("input[name=chkList]:checked").length;
-
-		if(total != checked) $("#chkAll").prop("checked", false);
-		else $("#chkAll").prop("checked", true); 
-	});
-});
-</script>
-<script type="text/javascript">
-let header = "${_csrf.headerName}";
-let token = "${_csrf.token}";
-tokendata = {"header":header, "token":token};
-let filecon = $("input[name=filecon]").val();
-let refeNm = $("input[name=company]").val();
-console.log("????: " + filecon);
-$(function() {
-   $('#thefiles').FancyFileUpload({
-      url : '/reference/uploadAjaxAction',
-      params : {
-         action : 'fileuploader',
-         edit :true,
-
-      },
-      Accept: 'application/json',
-      startupload : function(SubmitUpload, e, data) {
-    	  console.log("????: " + filecon);
-          console.log("ddd:",data.originalFiles);
-          console.log("data 체크: " , data.files);
-          console.log("data 체크: " , data.files[0]);
-          
-           let formData = new FormData();
-           for(let i=0; i<data.originalFiles.length; i++){
-//             formData.append("filecon",filecon);      
-            formData.append("uploadFile",data.originalFiles[i]);      
-            formData.append("prcEmpCd","${prcEmpCd}");      
-            formData.append("prcDepCd","${prcDepCd}");   
-            formData.append("refeNm",refeNm);   
-            }
-          
-            $.ajax({
-                url:"/reference/uploadAjaxAction",
-                processData:false,
-                contentType:false,
-                data:formData,
-                dataType:"json",
-                type:"post",
-                beforeSend:function(xhr){
-                   xhr.setRequestHeader(header,token);
-                },
-                success:function(result){
-                   console.log("result: " + JSON.stringify(result));
-                   if(result.status>0){
-                           $('.ff_fileupload_fileinfo').text('complete');
-                           $('.ff_fileupload_progress_bar').css('width', '100%');
-                        }setTimeout(function(){
-                           data.ff_info.RemoveFile();
-                           location.href="/reference/companyAdmin";
-                     },1500);
-//                    if(result.status>0){//다중 insert 성공
-//                       Toast.fire({
-//                            icon: 'success',
-//                            title: '등록 성공했어요!~!'
-//                          })
-//                    }else{//다중 insert 실패
-//                       Toast.fire({
-//                       icon:'error',
-//                        title: '실---패----'
-//                       })
-//                    }
-                }
-          });
-      }
-   });
-});
-
-</script>
 <script type="text/javascript">
 $(function() {
 	let header = "${_csrf.headerName}";
@@ -232,7 +148,7 @@ $(".downloadbtn").on("click", function() {
 });
 
 
-let refeNm = $("input[name=company]").val();
+let refeNm = $("input[name=companyAdmin]").val();
   $('#thefiles').FancyFileUpload({
      url : '/reference/uploadAjaxAction',
      params : {
@@ -246,7 +162,6 @@ let refeNm = $("input[name=company]").val();
          console.log("data 체크: " , data.files[0]);
          let refeCon = $(".ff_fileupload_filecon");
          console.log("refeCon 체크: " , refeCon);
-         console.log("refeNm 체크: " , refeNm);
           let formData = new FormData();
           for(let i=0; i<data.originalFiles.length; i++){
            formData.append("uploadFile",data.originalFiles[i]);      
@@ -271,21 +186,11 @@ let refeNm = $("input[name=company]").val();
                   if(result.status>0){
                           $('.ff_fileupload_fileinfo').text('complete');
                           $('.ff_fileupload_progress_bar').css('width', '100%');
+                          swal("업로드가 완료되었습니다.");
                        }setTimeout(function(){
                           data.ff_info.RemoveFile();
                           location.href="/reference/companyAdmin";
                     },1500);
-//                    if(result.status>0){//다중 insert 성공
-//                       Toast.fire({
-//                            icon: 'success',
-//                            title: '등록 성공했어요!~!'
-//                          })
-//                    }else{//다중 insert 실패
-//                       Toast.fire({
-//                       icon:'error',
-//                        title: '실---패----'
-//                       })
-//                    }
                }
          });
      }
@@ -305,6 +210,8 @@ $(".delbtn").on("click", function() {
    if (cnt > 0) {
       let con = confirm("선택한 파일 "+ cnt + "개를 삭제하시겠습니까?");
       if(con==true){
+         let header="${_csrf.headerName}";
+         let token="${_csrf.token}";
          $.ajax({
             url:"/reference/deletePost",
             contentType:"application/json;charset=utf-8",
@@ -316,6 +223,7 @@ $(".delbtn").on("click", function() {
             success:(function(result){
                console.log("result: " + JSON.stringify(result))
                if(result.toLowerCase()=="ok"){
+            	   swal("삭제되었습니다.");
                   location.href="/reference/companyAdmin"
                }else{
                   alert("삭제가 되지 않았습니다.");
@@ -326,6 +234,52 @@ $(".delbtn").on("click", function() {
    }
 });
 
+
+$("#searchBtn").click(function() {
+   let str = $("#searchBox").val();
+   let data = {"refeFileNm":str};
+   console.log("data : " + JSON.stringify(str));
+  
+   let header="${_csrf.headerName}";
+   let token ="${_csrf.token}";
+   console.log("header: " + header + ", token : " + token);
+  
+   $.ajax({
+      url:"/reference/search",
+      contentType:"application/json;charset=utf-8",
+      data:JSON.stringify(data),
+      dataType:"json",
+      type:"post",
+      beforeSend:function(xhr){
+         xhr.setRequestHeader(header,token);
+      },
+      success:function(result){
+         console.log("result: " + result)
+         $('#fileList').empty();
+         let searchTemp;
+         for(let i=0; i<result.length; i++){
+             searchTemp = `
+               <div class="col-xl-2 col-md-3  col-lg-6">
+                  <div class="card custom-card border shadow-none">
+                     <div class="card-body  text-center">
+                        <input type="checkbox" name="chkList" id="chkbox" value=""/>
+                        <div class="file-manger-icon">
+                           <a id="${stat.count}" ><img src="/resources/assets/img/files/png.png" alt="img" class="br-7" ></a>
+                        </div>
+                        <input type="hidden" id="refeCd${stat.count}" name="refeCd" value=""/>
+                        <input type="hidden" class="refeFileNm" id="refeFileNm" name="refeFileNm" value="\${result[i].refeFileNm}"/>
+                        <a href="/reference/detail?refeCd=${totalRefeVO.refeCd}">\${result[i].refeFileOrgNm}</a>
+                     </div>
+                  </div>
+               </div>`; 
+               $('#fileList').html($('#fileList').html() + searchTemp);
+         }
+      }
+   });
+});
+});
+</script>
+<script type="text/javascript">
 function fn_download(){
    let refeFileNm = sessionStorage.getItem("refeFileNm");
    console.log("refeFileNm2 : " +  refeFileNm);
@@ -353,3 +307,6 @@ function fn_download(){
 <script src="/resources/assets/js/select2.js"></script>
 <!-- Select2 js-->
 <script src="/resources/assets/plugins/select2/js/select2.min.js"></script>
+<link href="/resources/assets/plugins/datatable/css/dataTables.bootstrap5.css" rel="stylesheet">
+<link href="/resources/assets/plugins/datatable/css/buttons.bootstrap5.min.css" rel="stylesheet">
+<link href="/resources/assets/plugins/datatable/css/responsive.bootstrap5.css" rel="stylesheet">

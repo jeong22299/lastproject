@@ -90,6 +90,11 @@ public class BoardServiceImpl implements BoardService{
 	public int deleteCommuRep(ComCmmtVO comCmmtVO) {
 		return boardMapper.deleteCommuRep(comCmmtVO);
 	}
+
+	@Override
+	public List mainCommuList() {
+		return boardMapper.mainCommuList();
+	}
 	
 
 

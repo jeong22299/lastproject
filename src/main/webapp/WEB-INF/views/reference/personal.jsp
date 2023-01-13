@@ -59,10 +59,6 @@
 								rowspan="1" colspan="1"
 								aria-label="Age: activate to sort column ascending"
 								style="width:5%;">등록일시</th>
-							<th class="wd-20p sorting" tabindex="0" aria-controls="example1"
-								rowspan="1" colspan="1"
-								aria-label="Salary: activate to sort column ascending"
-								style="width: 5%;">조회 수</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -78,7 +74,6 @@
 							<td><a href="/reference/detail?refeCd=${totalRefeVO.refeCd}">${totalRefeVO.refeFileOrgNm}</a></td>
 							<td>${totalRefeVO.employeeVOList[0].empNm}</td>
 							<td><fmt:formatDate value="${totalRefeVO.regTi}" pattern="yy년MM월dd일  HH시mm분"/></td>
-							<td><fmt:formatNumber value='${totalRefeVO.viewCnt}' pattern='#,###' /></td>
 						</tr>
 					</c:if>
 					</c:forEach>
@@ -187,21 +182,11 @@ let refeNm = $("input[name=personal]").val();
                   if(result.status>0){
                           $('.ff_fileupload_fileinfo').text('complete');
                           $('.ff_fileupload_progress_bar').css('width', '100%');
+                          swal("업로드가 완료되었습니다.");
                        }setTimeout(function(){
                           data.ff_info.RemoveFile();
                           location.href="/reference/personal";
                     },1500);
-//                    if(result.status>0){//다중 insert 성공
-//                       Toast.fire({
-//                            icon: 'success',
-//                            title: '등록 성공했어요!~!'
-//                          })
-//                    }else{//다중 insert 실패
-//                       Toast.fire({
-//                       icon:'error',
-//                        title: '실---패----'
-//                       })
-//                    }
                }
          });
      }
@@ -221,12 +206,6 @@ $(".delbtn").on("click", function() {
    if (cnt > 0) {
       let con = confirm("선택한 파일 "+ cnt + "개를 삭제하시겠습니까?");
       if(con==true){
-//          let id = $(this).attr("id");
-        
-//          let refeCd = $("#refeCd"+id).val();
-//          console.log("refeCd: " + refeCd);
-        
-//          let data ={"refeCd":refeCd};
          let header="${_csrf.headerName}";
          let token="${_csrf.token}";
          $.ajax({
@@ -240,6 +219,7 @@ $(".delbtn").on("click", function() {
             success:(function(result){
                console.log("result: " + JSON.stringify(result))
                if(result.toLowerCase()=="ok"){
+            	   swal("삭제되었습니다.");
                   location.href="/reference/personal"
                }else{
                   alert("삭제가 되지 않았습니다.");

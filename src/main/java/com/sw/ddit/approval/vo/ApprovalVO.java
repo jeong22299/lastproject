@@ -48,6 +48,11 @@ public class ApprovalVO {
 	private String Sign2; // 두번째결재자 사인
 	private String Sign3; // 세번째결재자 사인
 	
+	private String apprSitCd0;
+	private String apprSitCd1;
+	private String apprSitCd2;
+	private String apprSitCd3;
+	
 	private String[] empCode;
 	
 	private String[] lineName0;//상신자 명
